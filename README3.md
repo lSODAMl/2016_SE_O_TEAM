@@ -31,24 +31,25 @@ User input information by ordering: mdfile -> htmlfile -> style(option)
 ###Usage
 1. md file
 User can input just md filename. In the case, html file name is same with md filename and style is plain
-...
->> a 
+'''1
+ a 
 '''
 
 2. md file | style
 User can input md filename and choice style. In the case, html file name is same with md filename
-'''
->> a --slide
+'''2
+ a --slide
 '''
 
 3. md file | html file
 User can input md filename and decide html file name. In the case, style is default(plain)
-'''
->> md_file html_file
+
+'''3
+ md_file html_file
 '''
 
 4. md file | html file | option
 User can input md filename , html file name and option
-'''
->> md_file html_file --fancy
+'''4
+ md_file html_file --fancy
 '''
