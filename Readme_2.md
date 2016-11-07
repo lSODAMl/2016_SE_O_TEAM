@@ -2,6 +2,9 @@ README ABOUT 다열'S CLI!
 ========================
 ---------------------------------------------------------------------------------------------------------------------
 
+
+
+
 ## Basic format of CLI is as follow:
 
 ----------------------------------------------
@@ -19,6 +22,9 @@ README ABOUT 다열'S CLI!
 1. plain : Creates basic html file.
 2. fancy : Creates more style added html file like CSS.
 3. slide : Creats html file that supports slide function.
+
+
+
 
 
 ## Option format of CLI is as follow:
