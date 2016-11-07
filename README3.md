@@ -47,9 +47,9 @@ User can input md filename , html file name and option
 >  md_file html_file --fancy
  
 ###Release
-'''
+```
 s
 s
 s
 s
-'''
+```
