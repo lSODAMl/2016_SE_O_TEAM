@@ -1,1 +1,1 @@
- - [ ] This is a complete item
+ - [o] This is a complete item
