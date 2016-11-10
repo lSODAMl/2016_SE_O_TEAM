@@ -2,7 +2,7 @@
 ## Command Line Interface(CLI)
 손다열 - 21200376 이동영 - 21200512 이한성 - 21200610 조혜인 - 21300739
 
-=========================================
+
 
 
 ##Syntax
@@ -10,6 +10,9 @@
 * java Main __-i__ [md file]+ __-o__ [html file]*
 * java Main __-i__ [md file]+ __-s__ [plain | fancy | slide]*
 * java Main __-i__ [md file]+ __-o__ [html file]* __-s__ [plain | fancy | slide]*
+
+
+
 
 ##Format
 * __-i__ [md file]+
@@ -60,10 +63,16 @@ bad use
 -s se fighting
 ```
 
+
+
+
 ### Style
 1. plain - default style
 2. fancy - fancy style
 3. slide - slide style
+
+
+
 
 ### Exception issue
 * help message: -help
