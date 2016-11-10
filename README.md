@@ -85,5 +85,5 @@ bad use
 >Program check md file is/are exist. So adjust dir in CLI.java -> CheckInputFile(method)-> directory(attribute) or check md file is existed
 
 * duplicated HTML file
->If HTML file already exists, program is numbering in HTML file
+>If HTML file already exists, program is numbering in HTML file. So adjust dir in CLI.java -> CheckOutputFile(method) -> directory(attribbute)
 ex) html(1).html
