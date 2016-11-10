@@ -22,3 +22,6 @@ styles(optional)
 *md_filename HTML filename style*
 
 *is this italic?_
+
+
+_You **can_ combine them**
