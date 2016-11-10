@@ -34,3 +34,6 @@ _Can **combine_ ddd**
 > > > > > > > > > > > > > >> > > Back to the first level .
 
 any kind of link like www.github.com converted automatically
+
+image
+https://octodex.github.com/images/yaktocat.png
