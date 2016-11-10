@@ -37,5 +37,10 @@ any kind of link like www.github.com converted automatically
 
 image
 https://octodex.github.com/images/yaktocat.png
+
 !(https://octodex.github.com/images/yaktocat.png)
+
 !https://octodex.github.com/images/yaktocat.png
+
+![Image of Yaktocat](https://octodex.github.com/images/yaktocat.png)
+
