@@ -1,1 +1,1 @@
- - [] This is a complete item
+ - [ ] This is a complete item
