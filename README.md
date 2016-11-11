@@ -3,7 +3,12 @@
 손다열 - 21200376 이동영 - 21200512 이한성 - 21200610 조혜인 - 21300739
 
 
-
+##Compile
+1. Go to directory that Main.java file exist(root directory in this project)
+2. Enter this command <br>
+   * javac Main.java 
+   * javac CLI/CLI.java 
+   * javac CLI/CLI_Checker.java
 
 ##Syntax
 * java Main __-i__ [md file]+
@@ -86,10 +91,10 @@ bad use
 
 * Duplicated HTML file
 >If HTML file already exists, program is numbering in HTML file. So adjust dir in CLI.java -> CheckOutputFile(method) -> directory(attribbute)
->>ex) 
->>* html.html
->>* html(1).html
->>* html(2).html
+>ex) <br>
+>* html.html<br>
+>* html(1).html<br>
+>* html(2).html
 
 * Command line have to be received in-order.
 1. HTML file number or style number do not exceed md file number
