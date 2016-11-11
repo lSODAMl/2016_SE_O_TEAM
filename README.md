@@ -5,7 +5,7 @@
 
 ##Compile
 1. Go to directory that Main.java file exist(root directory in this project)
-2. Enter this command <br>
+2. Enter this command orderly<br>
    * javac Main.java 
    * javac CLI/CLI.java 
    * javac CLI/CLI_Checker.java
