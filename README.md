@@ -2,10 +2,19 @@
 ## Command Line Interface(CLI)
 손다열 - 21200376 이동영 - 21200512 이한성 - 21200610 조혜인 - 21300739
 
+##Directory
+```
+-- root 
+  |--Main.java 
+  |--CLI 
+      |--CLI.java 
+      |--CLI_Checker.java
+```
 
-##Compile
-1. Go to directory that Main.java file exist(root directory in this project)
-2. Enter this command <br>
+##Compile<br>
+Main.java , CLI.java , CLI_Checker.java <br>
+1 Go to directory that Main.java file exist(root directory in this project)<br>
+2 Enter this command <br>
    * javac Main.java 
    * javac CLI/CLI.java 
    * javac CLI/CLI_Checker.java
@@ -79,18 +88,18 @@ bad use
 
 
 
-### Exception issue
+### issue
 * Help message: -help
 >If user enters '-help' in command line, user can see help message
 
 * Normalization
->If user enters '\ / : ? < > |' in md file or html file name, program reject command.
+>If user enters '\ / : ? < > |' in md file or html file name, err!
 
 * Check md file exist
->Program check md file is/are exist. So adjust dir in CLI.java -> CheckInputFile(method)-> directory(attribute) or check md file is existed
+>Program check md file is/are exist. If md file is not exist, err!
 
 * Duplicated HTML file
->If HTML file already exists, program is numbering in HTML file. So adjust dir in CLI.java -> CheckOutputFile(method) -> directory(attribbute)
+>If HTML file already exists, program is numbering in HTML file. 
 >ex) <br>
 >* html.html<br>
 >* html(1).html<br>
