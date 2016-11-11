@@ -75,18 +75,24 @@ bad use
 
 
 ### Exception issue
-* help message: -help
+* Help message: -help
 >If user enter '-help' in command line, he/she can see help message
 
-* normalization
+* Normalization
 >If user enter '\ / : ? < > |' in md file or html file name, program reject command.
 
-* check md file exist
+* Check md file exist
 >Program check md file is/are exist. So adjust dir in CLI.java -> CheckInputFile(method)-> directory(attribute) or check md file is existed
 
-* duplicated HTML file
+* Duplicated HTML file
 >If HTML file already exists, program is numbering in HTML file. So adjust dir in CLI.java -> CheckOutputFile(method) -> directory(attribbute)
 >>ex) 
 >>* html.html
 >>* html(1).html
 >>* html(2).html
+
+* Command line have to be received in-order.
+1. HTML file number or style number do not exceed md file number
+2. If user empty html file or style
+  * html file name is same with md file name
+  * style is plain(default style)
