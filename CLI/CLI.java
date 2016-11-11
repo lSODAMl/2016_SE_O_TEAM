@@ -82,7 +82,7 @@ public class CLI {
     public void CLI_Result(){
         System.out.println("==CLI_Result==");
         for(int i = 0; i < input.length; i++){
-            System.out.println(i +" File:");
+            System.out.println(i+1 +" File:");
             System.out.print(input[i]+" | ");
             System.out.print(output[i]+" | ");
             System.out.print(style[i]);
