@@ -5,7 +5,7 @@
 
 ##Compile
 1. Go to directory that Main.java file exist(root directory in this project)
-2. Enter this command orderly<br>
+2. Enter this command <br>
    * javac Main.java 
    * javac CLI/CLI.java 
    * javac CLI/CLI_Checker.java
@@ -22,7 +22,7 @@
 ##Format
 * __-i__ [md file]+
   1. A user can enter one or more md file/s.
-  2. When user enter md file/s, please add '.md'
+  2. When entering md file/s, please add '.md' after md file name.
 
 good use
 ```
@@ -36,8 +36,8 @@ bad use
 ```
 
 * __-o__ [html file]*
-  1. User can enter zero or mre html file.s.
-  2. When user enter html file/s, please add '.html'
+  1.  User can enter zero or mre html file.s.
+  2.  When entering html file/s, please add '.html' after html file name.
 
 good use
 ```
@@ -81,10 +81,10 @@ bad use
 
 ### Exception issue
 * Help message: -help
->If user enter '-help' in command line, he/she can see help message
+>If user enters '-help' in command line, user can see help message
 
 * Normalization
->If user enter '\ / : ? < > |' in md file or html file name, program reject command.
+>If user enters '\ / : ? < > |' in md file or html file name, program reject command.
 
 * Check md file exist
 >Program check md file is/are exist. So adjust dir in CLI.java -> CheckInputFile(method)-> directory(attribute) or check md file is existed
@@ -97,7 +97,7 @@ bad use
 >* html(2).html
 
 * Command line have to be received in-order.
-1. HTML file number or style number do not exceed md file number
-2. If user empty html file or style
-  * html file name is same with md file name
-  * style is plain(default style)
+1. HTML file number or style number must not exceed md file number
+2. If user omit html file name or style type
+  * html file name is same as md file name
+  * style type is plain(default style)
