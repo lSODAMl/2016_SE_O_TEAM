@@ -25,25 +25,18 @@ public class Parser {
         // Conform header
         if(Header.IsHeader(line)){
             MakeHeader(node, line);
-            System.out.println("nodeParser result");
-            for(int i = 0; i < node.nodes.size();i++){
-                if(node.nodes.get(i).getClass().getSimpleName().equals("Header")){
-                    Header header = new Header();
-                    header = (Header)node.nodes.get(i);
-                    System.out.println(header.headerNum);
-                }
-                else{
-                    System.out.println(node.nodes.get(i).token.tempStr);
-                }
-
-            }
 
             return;
-         }
-        // Other header
+        }
+        // Conform other node
+        //...
 
-
-        // Else
+        // Else - just token
+        else{
+            Node tempNode = new Node();
+            tempNode.token = Token.create(node.line);
+            node.nodes.add(tempNode);
+        }
     }
 
     public static void tokenParser(Node node){
@@ -53,31 +46,13 @@ public class Parser {
         // link
 
         // style
-        System.out.println("tokenParser result");
-
         if(Style.IsStyle(s))
             MakeStyle(node.token);
 
-
-        for(int i = 0; i < node.token.tokens.size();i++){
-            if(node.token.tokens.get(i).getClass().getSimpleName().equals("Text")){
-                Text text = (Text)node.token.tokens.get(i);
-                System.out.print(" text: "+text.text);
-            }
-            else if(node.token.tokens.get(i).getClass().getSimpleName().equals("Style")){
-                Style style = (Style)node.token.tokens.get(i);
-                System.out.print(" tok: "+style.category);
-            }
+            // text
+        else{
+            MakeText(node.token);
         }
-        System.out.println(" ");
-
-
-        // text
-
-
-
-
-
     }
 
     //public static void tokenParser(Node node);
@@ -163,5 +138,8 @@ public class Parser {
             }
         }
 
+    }
+    private static void MakeText(Token tok){
+        tok.tokens.add(new  Text(tok.tempStr));
     }
 }
