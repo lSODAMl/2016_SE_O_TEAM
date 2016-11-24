@@ -256,7 +256,7 @@ public class CLI_Checker {
 
     private boolean CheckInputFile(String[] args){
         // Please change directory
-        String directory ="./";
+        String directory ="../";
 
         for(int i = 1; i < args.length;i++){
             if(args[i].equals("-o") || args[i].equals("-s"))
