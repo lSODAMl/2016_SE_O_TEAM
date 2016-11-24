@@ -11,7 +11,7 @@ import org.w3c.tidy.Tidy;
 
 
 public class CodeGenerator {
-	
+
 	private CLI cli = new CLI();
 	private static boolean isBegin = true;
 	private static int lineComp=0;
@@ -23,24 +23,24 @@ public class CodeGenerator {
 	private static int styleTagIndex = 0;
 	private static int tokSize=0;
 	private static boolean plainText = true;
-	
+
 	public static String msg;
 	public static BufferedWriter file;
-	
+
 	Tidy tidy = new Tidy();
-	
+
 	CodeGenerator()	{}
-	
+
 	CodeGenerator(CLI cli)
 	{
 		this.cli = cli;
 	}
-	
+
 	public void selector()
 	{
-		 
+
 	}
-	
+
 	public void setNode(Node node,int index, int lineNo)
 	{
 		//System.out.println(cli.output[index]);
@@ -50,15 +50,15 @@ public class CodeGenerator {
 	            {
 	            	 file = new BufferedWriter(new FileWriter(CLI.output[index], true));
 	            	if(lineNo == 0 && isBegin )
-	            	{  
+	            	{
 	            		isBegin = false;
 	            		msg = "<html>\n";
 	            		msg += "<head>\n";
 	            		msg += "</head>\n";
 	            		msg += "<body>\n";
 	            	}
-	           
-	            	
+
+
 	        		if(lineComp < lineNo) //줄바꿔줌 (텍스트상)
 	        		{
 	        			msg += "\n";
@@ -66,12 +66,12 @@ public class CodeGenerator {
 	        			inLine=0;
 	        			tokSize = ((Main.docs[index]).docNodes.get(lineNo)).nodes.size();
 	        		}
-	        		
-	        		
+
+
 	        		if(node.getClass().getSimpleName().equals("Header")) //갯수
 	        		{
 	        			//plainText = false;
-	        			
+
 	        			Header header = (Header)node;
 	        			switch(header.headerNum)
 	        			{
@@ -96,23 +96,23 @@ public class CodeGenerator {
 	        			}
 	        			tagIndex++;
 	        		}
-	        					
-	        		System.out.println("Node inLine " + inLine);
-	    	    	System.out.println("Node내 위치 " + ((Main.docs[index]).docNodes.get(lineNo)).nodes.size());
-	        		
+
+	        		//System.out.println("Node inLine " + inLine);
+	    	    	//System.out.println("Node내 위치 " + ((Main.docs[index]).docNodes.get(lineNo)).nodes.size());
+
 	        		if(inLine == ((Main.docs[index]).docNodes.get(lineNo)).nodes.size()-1)
 	    	    	{
-	        			System.out.println("헤더닫아");
+	        			//System.out.println("헤더닫아");
 	    				for(int i=0;i<tagIndex;i++)
 	    				{
-	    					System.out.println("헤더닫아");
+	    					//System.out.println("헤더닫아");
 	    					msg += tempTag[i];
 	    					 // 닫는 테그 추가
 	    				}
-	    				
+
 	    				tagIndex = 0; //초기화
 	    	    	}
-	            	
+
 	        		//System.out.println("lineComp " + lineComp);
 	        		//System.out.println("Main.docs " + (Main.docs[index].docNodes.size()-1));
 	        		//System.out.println("inLine " + inLine);
@@ -125,7 +125,7 @@ public class CodeGenerator {
 
 	            	}
 
-	                
+
 	            }
 	            catch (IOException e)
 	            {
@@ -135,7 +135,7 @@ public class CodeGenerator {
 	            catch (Exception e){
 	                System.out.println(e);
 	            }
-	        
+
 	        inLine++;
 	}
 
@@ -148,7 +148,7 @@ public class CodeGenerator {
 	            {
 	            	 file = new BufferedWriter(new FileWriter(CLI.output[index], true));
 	            	if(lineNo == 0 && isBegin )
-	            	{  
+	            	{
 	            		isBegin = false;
 	            		msg = "<html>\n";
 	            		msg += "<head>\n";
@@ -159,8 +159,8 @@ public class CodeGenerator {
 	            		msg += "<body>\n";
 
 	            	}
-	           
-	            	
+
+
 	        		if(lineComp < lineNo) //줄바꿔줌 (텍스트상)
 	        		{
 	        			msg += "\n";
@@ -168,12 +168,12 @@ public class CodeGenerator {
 	        			inLine=0;
 	        			tokSize = ((Main.docs[index]).docNodes.get(lineNo)).nodes.size();
 	        		}
-	        		
-	        		
+
+
 	        		if(node.getClass().getSimpleName().equals("Header")) //갯수
 	        		{
 	        			//plainText = false;
-	        			
+
 	        			Header header = (Header)node;
 	        			switch(header.headerNum)
 	        			{
@@ -198,23 +198,23 @@ public class CodeGenerator {
 	        			}
 	        			tagIndex++;
 	        		}
-	        					
-	        		System.out.println("Node inLine " + inLine);
-	    	    	System.out.println("Node내 위치 " + ((Main.docs[index]).docNodes.get(lineNo)).nodes.size());
-	        		
+
+	        		//.println("Node inLine " + inLine);
+	    	    	//System.out.println("Node내 위치 " + ((Main.docs[index]).docNodes.get(lineNo)).nodes.size());
+
 	        		if(inLine == ((Main.docs[index]).docNodes.get(lineNo)).nodes.size()-1)
 	    	    	{
-	        			System.out.println("헤더닫아");
+	        			//System.out.println("헤더닫아");
 	    				for(int i=0;i<tagIndex;i++)
 	    				{
-	    					System.out.println("헤더닫아");
+	    					//System.out.println("헤더닫아");
 	    					msg += tempTag[i];
 	    					 // 닫는 테그 추가
 	    				}
-	    				
+
 	    				tagIndex = 0; //초기화
 	    	    	}
-	            	
+
 	        		//System.out.println("lineComp " + lineComp);
 	        		//System.out.println("Main.docs " + (Main.docs[index].docNodes.size()-1));
 	        		//System.out.println("inLine " + inLine);
@@ -227,7 +227,7 @@ public class CodeGenerator {
 
 	            	}
 
-	                
+
 	            }
 	            catch (IOException e)
 	            {
@@ -237,30 +237,30 @@ public class CodeGenerator {
 	            catch (Exception e){
 	                System.out.println(e);
 	            }
-	        
+
 	        inLine++;
 	}
-	
+
 
 	public void setToken(Token token,int index, int lineNo, int nodeNo, int tokenNo)
-	{		
+	{
 		if(tokSize==0) //token의 사이즈를 받는 놈이다.
 			tokSize = ((Main.docs[index]).docNodes.get(lineNo)).nodes.size();
-		
+
 		 try
          {
 		 file = new BufferedWriter(new FileWriter(CLI.output[index], true));
 
 			if(lineNo == 0 && isBegin )
-			{  
-				
+			{
+
 				isBegin = false;
 				msg = "<html>\n";
         		msg += "<head>\n";
         		msg += "</head>\n";
         		msg += "<body>\n";
 			}
-			
+
 			if(lineComp < lineNo) //줄바꿔줌 (텍스트상)
     		{
 				System.out.println("줄바꿈!");
@@ -269,18 +269,18 @@ public class CodeGenerator {
     			inLine=0;
     			tokSize = ((Main.docs[index]).docNodes.get(lineNo)).nodes.size();
     		}
-			
-		 if(token.getClass().getSimpleName().equals("Text"))		 
+
+		 if(token.getClass().getSimpleName().equals("Text"))
 		 {
 			Text text = (Text)token;
-			System.out.println("여기"+text.text);
-	
+			//System.out.println("여기"+text.text);
+
 			msg += text.text;
-			
+
 			 try{
-				 
+
 				 if(((Main.docs[index]).docNodes.get(lineNo)).
-						 nodes.get(nodeNo).token.tokens.get(tokenNo+1) != null&&!tokBefore){  
+						 nodes.get(nodeNo).token.tokens.get(tokenNo+1) != null&&!tokBefore){
 							 tokSize++;
 						 }
 			 }
@@ -292,13 +292,13 @@ public class CodeGenerator {
 								 // 닫는 테그 추가
 						}
 						tagIndex = 0;
-		             System.err.println(e);
+		            // System.err.println(e);
 		         }
 
 			 if(!tokBefore)
 				 inLine++;
 		 }
-		 
+
 		 if(token.getClass().getSimpleName().equals("Style"))
 		 {
 			 Style style = (Style)token;
@@ -306,78 +306,78 @@ public class CodeGenerator {
 			 {
 				 if(style.tag)
 				 {
-					 System.out.println("여기"+style.category);
-					 if(!tokBefore) 
+					// System.out.println("여기"+style.category);
+					 if(!tokBefore)
 						  inLine++;
 					 tokBefore = false;
 					 if(styleTagIndex>0)
 						 styleTagIndex++;
-					 
+
 					 msg += "<em>";
 					 isOpen[styleTagIndex] = true;
-					 
+
 				 }
 					 else
-					 {   System.out.println("em끝");
-					 System.out.println("여기"+style.category);
-					 
+					 {  // System.out.println("em끝");
+					// System.out.println("여기"+style.category);
+
 					 try{
-						 
+
 					 if(((Main.docs[index]).docNodes.get(lineNo)).
 							 nodes.get(nodeNo).token.tokens.get(tokenNo+1) != null)
 					 {
 						 tokSize++;
 					 }
-					 
+
 					 }
 					  catch (Exception e)
 			         {
 
-			             System.err.println(e);
+			            // System.err.println(e);
 			         }
 
-					 
+
 					 isOpen[styleTagIndex] = false;
 					 if(styleTagIndex>0)
 						 styleTagIndex--;
 					 msg += "</em>";
 					 }
 				}
-			 
+
 			 else if(style.category.equals("__"))
 			 {
 				 if(style.tag)
 				 {
-					 System.out.println("여기"+style.category);
-					 if(!tokBefore) 
+					// System.out.println("여기"+style.category);
+					 if(!tokBefore)
 						  inLine++;
 					 tokBefore = false;
 					 if(styleTagIndex>0)
 						 styleTagIndex++;
-					 
+
 					 msg += "<strong>";
 					 isOpen[styleTagIndex] = true;
-					 
+
 				 }
 					 else
-					 {   System.out.println("strong끝");
-					 System.out.println("여기"+style.category);
-					 
+					 {  // System.out.println("strong끝");
+					// System.out.println("여기"+style.category);
+
 					 try{
-						 
+
 					 if(((Main.docs[index]).docNodes.get(lineNo)).
 							 nodes.get(nodeNo).token.tokens.get(tokenNo+1) != null)
 					 {
 						 tokSize++;
 					 }
-					 
+
 					 }
 					  catch (Exception e)
 			         {
-			             System.err.println(e);
+			           //  System.err.println(e);
 			         }
 
-					 
+
 					 isOpen[styleTagIndex] = false;
 					 if(styleTagIndex>0)
 						 styleTagIndex--;
@@ -388,37 +388,37 @@ public class CodeGenerator {
 
 		  //	System.out.println("Token inLine " + inLine);
 	    	//System.out.println("Main.docs.line내 위치 " + ((Main.docs[index]).docNodes.get(lineNo)).nodes.size());
-		 System.out.println("inLine " + inLine);
- 		System.out.println("Main.docs.line내 위치 " + tokSize);
+		// System.out.println("inLine " + inLine);
+ 	//	System.out.println("Main.docs.line내 위치 " + tokSize);
 	    	if(inLine == tokSize && !isOpen[styleTagIndex])
 	    	{
 	    		tokBefore = false;
-	    		System.out.println("초기화");
+	    	//	System.out.println("초기화");
 				for(int i=0;i<tagIndex;i++) //header 쪽 끝 태그 삽입부분
-				{ System.out.println("끝");
+				{ //System.out.println("끝");
 					msg += tempTag[i];
 					 // 닫는 테그 추가
 				}
 				if((lineComp  == (Main.docs[index]).docNodes.size()-1)&&
 	        			(inLine == tokSize && !isOpen[styleTagIndex]))
 	        	{
-					System.out.println("종료태그");
+					//System.out.println("종료태그");
 		    		msg += "\n</body>";
 	        		msg +="\n</html>";
 
 	        	}
 				inLine=0;
 				tagIndex = 0; //초기화
-				
+
 				return;
 	    	}
 		//	System.out.println("lineComp " + lineComp);
     	//	System.out.println("Main.docs " + (Main.docs[index].docNodes.size()-1));
     		//System.out.println("inLine " + inLine);
-			
-    	
+
+
          }
-		 
+
 		  catch (IOException e)
          {
              System.err.println(e);
@@ -427,27 +427,27 @@ public class CodeGenerator {
          catch (Exception e){
              System.out.println(e);
          }
-		 
-		
+
+
 		 if(isOpen[styleTagIndex])
 			 tokBefore = true;
 		 else
 			 tokBefore = false;
 
 	}
-	
+
 	public void setToken(Token token,int index, int lineNo, int nodeNo, int tokenNo, String color)
-	{		
+	{
 		if(tokSize==0) //token의 사이즈를 받는 놈이다.
 			tokSize = ((Main.docs[index]).docNodes.get(lineNo)).nodes.size();
-		
+
 		 try
          {
 		 file = new BufferedWriter(new FileWriter(CLI.output[index], true));
 
 			if(lineNo == 0 && isBegin )
-			{  
-				
+			{
+
 				isBegin = false;
 				msg = "<html>\n";
         		msg += "<head>\n";
@@ -458,27 +458,27 @@ public class CodeGenerator {
         		msg += "<body>\n";
 
 			}
-			
+
 			if(lineComp < lineNo) //줄바꿔줌 (텍스트상)
     		{
-				System.out.println("줄바꿈!");
+				//System.out.println("줄바꿈!");
     			msg += "\n";
     			lineComp = lineNo;
     			inLine=0;
     			tokSize = ((Main.docs[index]).docNodes.get(lineNo)).nodes.size();
     		}
-			
-		 if(token.getClass().getSimpleName().equals("Text"))		 
+
+		 if(token.getClass().getSimpleName().equals("Text"))
 		 {
 			Text text = (Text)token;
-			System.out.println("여기"+text.text);
-	
+			//System.out.println("여기"+text.text);
+
 			msg += text.text;
-			
+
 			 try{
-				 
+
 				 if(((Main.docs[index]).docNodes.get(lineNo)).
-						 nodes.get(nodeNo).token.tokens.get(tokenNo+1) != null&&!tokBefore){  
+						 nodes.get(nodeNo).token.tokens.get(tokenNo+1) != null&&!tokBefore){
 							 tokSize++;
 						 }
 			 }
@@ -490,13 +490,13 @@ public class CodeGenerator {
 								 // 닫는 테그 추가
 						}
 						tagIndex = 0;
-		             System.err.println(e);
+		           //  System.err.println(e);
 		         }
 
 			 if(!tokBefore)
 				 inLine++;
 		 }
-		 
+
 		 if(token.getClass().getSimpleName().equals("Style"))
 		 {
 			 Style style = (Style)token;
@@ -504,78 +504,78 @@ public class CodeGenerator {
 			 {
 				 if(style.tag)
 				 {
-					 System.out.println("여기"+style.category);
-					 if(!tokBefore) 
+					// System.out.println("여기"+style.category);
+					 if(!tokBefore)
 						  inLine++;
 					 tokBefore = false;
 					 if(styleTagIndex>0)
 						 styleTagIndex++;
-					 
+
 					 msg += "<em>";
 					 isOpen[styleTagIndex] = true;
-					 
+
 				 }
 					 else
-					 {   System.out.println("em끝");
-					 System.out.println("여기"+style.category);
-					 
+					 { //  System.out.println("em끝");
+				//	 System.out.println("여기"+style.category);
+
 					 try{
-						 
+
 					 if(((Main.docs[index]).docNodes.get(lineNo)).
 							 nodes.get(nodeNo).token.tokens.get(tokenNo+1) != null)
 					 {
 						 tokSize++;
 					 }
-					 
+
 					 }
 					  catch (Exception e)
 			         {
 
-			             System.err.println(e);
+			            // System.err.println(e);
 			         }
 
-					 
+
 					 isOpen[styleTagIndex] = false;
 					 if(styleTagIndex>0)
 						 styleTagIndex--;
 					 msg += "</em>";
 					 }
 				}
-			 
+
 			 else if(style.category.equals("__"))
 			 {
 				 if(style.tag)
 				 {
-					 System.out.println("여기"+style.category);
-					 if(!tokBefore) 
+					// System.out.println("여기"+style.category);
+					 if(!tokBefore)
 						  inLine++;
 					 tokBefore = false;
 					 if(styleTagIndex>0)
 						 styleTagIndex++;
-					 
+
 					 msg += "<strong>";
 					 isOpen[styleTagIndex] = true;
-					 
+
 				 }
 					 else
-					 {   System.out.println("strong끝");
-					 System.out.println("여기"+style.category);
-					 
+					 {  // System.out.println("strong끝");
+				// System.out.println("여기"+style.category);
+
 					 try{
-						 
+
 					 if(((Main.docs[index]).docNodes.get(lineNo)).
 							 nodes.get(nodeNo).token.tokens.get(tokenNo+1) != null)
 					 {
 						 tokSize++;
 					 }
-					 
+
 					 }
 					  catch (Exception e)
 			         {
-			             System.err.println(e);
+			           //  System.err.println(e);
 			         }
 
-					 
+
 					 isOpen[styleTagIndex] = false;
 					 if(styleTagIndex>0)
 						 styleTagIndex--;
@@ -586,37 +586,37 @@ public class CodeGenerator {
 
 		  //	System.out.println("Token inLine " + inLine);
 	    	//System.out.println("Main.docs.line내 위치 " + ((Main.docs[index]).docNodes.get(lineNo)).nodes.size());
-		 System.out.println("inLine " + inLine);
- 		System.out.println("Main.docs.line내 위치 " + tokSize);
+		// System.out.println("inLine " + inLine);
+ 		//System.out.println("Main.docs.line내 위치 " + tokSize);
 	    	if(inLine == tokSize && !isOpen[styleTagIndex])
 	    	{
 	    		tokBefore = false;
-	    		System.out.println("초기화");
+	    		//System.out.println("초기화");
 				for(int i=0;i<tagIndex;i++) //header 쪽 끝 태그 삽입부분
-				{ System.out.println("끝");
+				{ //System.out.println("끝");
 					msg += tempTag[i];
 					 // 닫는 테그 추가
 				}
 				if((lineComp  == (Main.docs[index]).docNodes.size()-1)&&
 	        			(inLine == tokSize && !isOpen[styleTagIndex]))
 	        	{
-					System.out.println("종료태그");
+					//System.out.println("종료태그");
 		    		msg += "\n</body>";
 	        		msg +="\n</html>";
 
 	        	}
 				inLine=0;
 				tagIndex = 0; //초기화
-				
+
 				return;
 	    	}
 		//	System.out.println("lineComp " + lineComp);
     	//	System.out.println("Main.docs " + (Main.docs[index].docNodes.size()-1));
     		//System.out.println("inLine " + inLine);
-			
-    	
+
+
          }
-		 
+
 		  catch (IOException e)
          {
              System.err.println(e);
@@ -625,8 +625,8 @@ public class CodeGenerator {
          catch (Exception e){
              System.out.println(e);
          }
-		 
-		
+
+
 		 if(isOpen[styleTagIndex])
 			 tokBefore = true;
 		 else
