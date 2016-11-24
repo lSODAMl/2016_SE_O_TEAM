@@ -1,9 +1,10 @@
-package CLI;
+//package CLI;
 import java.io.*;
 import java.util.*;
 
 public class CLI {
-    String input[], output[], style[];
+    public static String input[], output[];
+    public static String style[];
     CLI_Checker checker = new CLI_Checker();
 
     public boolean Receive(String[] args){
@@ -38,8 +39,10 @@ public class CLI {
                 output[outputCount++] = args[i];
 
             else if(args[i].equals("plain") || args[i].equals("fancy") || args[i].equals("slide"))
+            {
                 style[styleCount++] = args[i];
-        }
+            }
+         }
     }
 
     public void FillByType(){
@@ -57,16 +60,19 @@ public class CLI {
         }
     }
 
+    public String[] GetInput(){
+        return input;
+    }
     public void MakeHTML(){
         for(int i = 0; i < input.length; i++){
             try
             {
-                output[i] = checker.CheckOutputFile(output[i]);
+                output[i] = checker.CheckOutputFile("doc/" + output[i]);
                 output[i] = output[i].concat(".html");
                 FileWriter fw = new FileWriter(output[i]);
                 BufferedWriter bw = new BufferedWriter(fw);
-                bw.newLine();
-                bw.close();
+               // bw.newLine();
+               // bw.close();
             }
             catch (IOException e)
             {

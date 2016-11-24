@@ -1,9 +1,9 @@
-package Parser;
+//package Parser;
 
 import java.io.*;
 import java.io.File;
 import java.util.ArrayList;
-import IR.*;
+//import IR.*;
 
 public class Parser {
     public static void docParser(String fileName, Document doc){
@@ -27,7 +27,7 @@ public class Parser {
             MakeHeader(node, line);
 
             return;
-        }
+         }
         // Conform other node
         //...
 
@@ -49,7 +49,7 @@ public class Parser {
         if(Style.IsStyle(s))
             MakeStyle(node.token);
 
-            // text
+        // text
         else{
             MakeText(node.token);
         }

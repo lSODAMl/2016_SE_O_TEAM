@@ -1,4 +1,4 @@
-package IR;
+//package IR;
 
 import java.util.ArrayList;
 
@@ -10,5 +10,10 @@ public class Token implements MDElement{
         Token tok = new Token();
         tok.tempStr = str;
         return tok;
+    }
+    
+    public void accept(MDElementVisitor v)
+    {
+  	  v.visitToken(this);
     }
 }

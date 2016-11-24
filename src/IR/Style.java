@@ -1,4 +1,4 @@
-package IR;
+//package IR;
 
 public class Style extends Token{
     // <em>: '_' | <strong>: '__'

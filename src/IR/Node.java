@@ -1,4 +1,4 @@
-package IR;
+//package IR;
 
 import java.util.ArrayList;
 
@@ -10,5 +10,10 @@ public class Node {
         Node node = new Node();
         node.line = str;
         return node;
+    }
+    
+    public void accept(MDElementVisitor v)
+    {
+  	  v.visitNode(this);
     }
 }
