@@ -27,6 +27,7 @@
     <delete dir="${bin.dir}"/>
     <delete dir="${jar.dir}"/>
     <delete dir="${doc.dir}"/>
+    <delete>
       <fileset defaultexcludes="no" dir="${source.dir}" includes="**/*~"/>
     </delete>
   </target>
