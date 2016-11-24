@@ -67,7 +67,7 @@ public class CLI {
         for(int i = 0; i < input.length; i++){
             try
             {
-                output[i] = checker.CheckOutputFile("doc/" + output[i]);
+                output[i] = checker.CheckOutputFile("../doc/" + output[i]);
                 output[i] = output[i].concat(".html");
                 FileWriter fw = new FileWriter(output[i]);
                 BufferedWriter bw = new BufferedWriter(fw);

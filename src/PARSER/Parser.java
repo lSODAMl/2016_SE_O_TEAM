@@ -7,14 +7,15 @@ import java.util.ArrayList;
 
 public class Parser {
     public static void docParser(String fileName, Document doc){
-        String directory = "";
+        String directory = "../";
         File file = new File(directory+fileName);
         try {
             BufferedReader in = new BufferedReader(new FileReader(file));
             String s;
-            while((s = in.readLine()) != null)
+            while((s = in.readLine()) != null){
                 doc.docNodes.add(Node.create(s));
-
+						System.out.println(s);
+			}
         }catch (IOException e){
             System.err.println(e);
             System.exit(1);
