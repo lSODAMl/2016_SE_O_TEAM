@@ -3,7 +3,7 @@ package IR;
 public class HorizontalBar extends Node{
 
     public static boolean IsHorizontal(String str){
-    	// alphabet 있는지 없는 지 학인
+
         str = str.replaceAll(" ","");
         System.out.println(str);
         int count = 0;
