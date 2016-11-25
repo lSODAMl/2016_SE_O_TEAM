@@ -12,10 +12,9 @@ public class Parser {
         try {
             BufferedReader in = new BufferedReader(new FileReader(file));
             String s;
-            while((s = in.readLine()) != null){
+            while((s = in.readLine()) != null)
                 doc.docNodes.add(Node.create(s));
-						System.out.println(s);
-			}
+
         }catch (IOException e){
             System.err.println(e);
             System.exit(1);
@@ -26,10 +25,13 @@ public class Parser {
         // Conform header
         if(Header.IsHeader(line)){
             MakeHeader(node, line);
-
             return;
-         }
+        }
         // Conform other node
+        else if(HorizontalBar.IsHorizontal(line)){
+            MakeHorizontalBar(node);
+        }
+
         //...
 
         // Else - just token
@@ -43,14 +45,15 @@ public class Parser {
     public static void tokenParser(Node node){
         String s = node.token.tempStr;
         // image
-
-        // link
-
-        // style
-        if(Style.IsStyle(s))
+        if(Image.IsImage(s))
+            MakeImg(node.token);
+            // link
+        else if(Link.IsLink(s))
+            MakeLink(node.token);
+            // style
+        else if(Style.IsStyle(s))
             MakeStyle(node.token);
-
-        // text
+            // text
         else{
             MakeText(node.token);
         }
@@ -65,21 +68,24 @@ public class Parser {
                 break;
             }
         }
-        // Add Header - <h1-6>
         Header header = new Header();
         header.headerNum = pos;
         node.nodes.add(header);
 
-        // ADD Token
         Node tempNode = new Node();
         tempNode.token = Token.create(line.substring(pos));
         node.nodes.add(tempNode);
 
-        // ADD Header - </h1-6>
         header = new Header();
         header.tag = false;
         node.nodes.add(header);
     }
+    private static void MakeHorizontalBar(Node node){
+        HorizontalBar bar = new HorizontalBar();
+        node.nodes.add(bar);
+    }
+
+
     private static void MakeStyle(Token tok){
         int idx = 0;
         String symbol = new String(), s = tok.tempStr;
@@ -147,7 +153,43 @@ public class Parser {
         }
 
     }
+    private static void MakeLink(Token tok){
+        String s = tok.tempStr;
+        String href = new String();
+        String linkName = new String();
+        if(s.matches("\\[.*\\]\\(http://.*\\)")){
+            int idx = s.indexOf("(");
+            href = s.substring(idx +1,s.length()-1);
+            linkName = s.substring(s.indexOf("[")+1,s.indexOf("]"));
+            Link link = new Link();
+            link.href = href;
+            link.linkName = linkName;
+            tok.tokens.add(link);
+        }
+
+        else{
+            Link link = new Link();
+            link.href = s;
+            tok.tokens.add(link);
+        }
+
+    }
+    private static void MakeImg(Token tok){
+        String s = tok.tempStr;
+        String altText = new String();
+        String src = new String();
+        if(s.matches("!\\[.*\\]\\(http://.*\\)")){
+            int idx = s.indexOf("(");
+            altText = s.substring(idx +1,s.length()-1);
+            src = s.substring(s.indexOf("[")+1,s.indexOf("]"));
+            Image img = new Image();
+            img.altText = altText;
+            img.src = src;
+            tok.tokens.add(img);
+        }
+    }
+
     private static void MakeText(Token tok){
-        tok.tokens.add(new  Text(tok.tempStr));
+        tok.tokens.add(new Text(tok.tempStr));
     }
 }
