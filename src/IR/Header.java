@@ -1,8 +1,10 @@
-//package IR;
+package IR;
 
 public class Header extends Node{
     public int headerNum = 0;
-
+    // tag true:  <tag>
+    // tag false: </tag>
+    public boolean tag = true;
     public static boolean IsHeader(String str){
         char[] splitLine = str.toCharArray();
         int count = 0;

@@ -1,9 +1,9 @@
-//package Parser;
+package PARSER;
 
 import java.io.*;
 import java.io.File;
 import java.util.ArrayList;
-//import IR.*;
+import IR.*;
 
 public class Parser {
     public static void docParser(String fileName, Document doc){
@@ -65,13 +65,20 @@ public class Parser {
                 break;
             }
         }
+        // Add Header - <h1-6>
         Header header = new Header();
         header.headerNum = pos;
         node.nodes.add(header);
 
+        // ADD Token
         Node tempNode = new Node();
         tempNode.token = Token.create(line.substring(pos));
         node.nodes.add(tempNode);
+
+        // ADD Header - </h1-6>
+        header = new Header();
+        header.tag = false;
+        node.nodes.add(header);
     }
     private static void MakeStyle(Token tok){
         int idx = 0;
