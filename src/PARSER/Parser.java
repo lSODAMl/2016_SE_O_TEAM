@@ -172,6 +172,9 @@ public class Parser {
             link.href = s;
             tok.tokens.add(link);
         }
+        Link lnk = new Link();
+        lnk.tag = false;
+        tok.tokens.add(lnk);
 
     }
     private static void MakeImg(Token tok){
