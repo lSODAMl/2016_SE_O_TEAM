@@ -1,4 +1,4 @@
-package IR;
+//package IR;
 
 /**
  * Created by LeeDongYoung on 2016-11-25.
@@ -6,6 +6,7 @@ package IR;
 public class Link extends Token{
     public String href = new String();
     public String linkName = new String();
+    public boolean tag = true;
     public static boolean IsLink(String str){
         if(str.matches("\\[.*\\]\\(http://.*\\)"))
             return true;

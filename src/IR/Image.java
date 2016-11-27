@@ -1,4 +1,4 @@
-package IR;
+//package IR;
 
 public class Image extends Token{
     public String altText = new String();
