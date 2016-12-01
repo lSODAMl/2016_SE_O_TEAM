@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import IR.*;
 
 public class Parser {
+    static private boolean codeFlag = false;
+    static private boolean pFlag = false;
+
     public static void docParser(String fileName, Document doc){
         String directory = "../";
         File file = new File(directory+fileName);
@@ -22,17 +25,57 @@ public class Parser {
     }
     public static void nodeParser(Node node){
         String line = node.line;
+
+        // Conform code block
+        // </CodeBlock>
+        if(codeFlag && CodeBlock.IsCodeBlock(line)){
+            MakeCodeBlock(node,codeFlag);
+            codeFlag = false;
+        }
+        // in use -> text
+        else if(codeFlag && !CodeBlock.IsCodeBlock(line)){
+            Node tempNode = new Node();
+            tempNode.token = Token.create(node.line);
+            node.nodes.add(tempNode);
+        }
+        // <CodeBlock>
+        else if(!codeFlag && CodeBlock.IsCodeBlock(line)){
+            if(pFlag){
+                pFlag = false;
+                MakeParagraph(node, line, pFlag);
+            }
+
+            MakeCodeBlock(node,codeFlag);
+            codeFlag = true;
+        }
+        ////////////////////
+
         // Conform header
-        if(Header.IsHeader(line)){
+        else if(Header.IsHeader(line)){
+            if(pFlag){
+                pFlag = false;
+                MakeParagraph(node, line, pFlag);
+            }
+
             MakeHeader(node, line);
             return;
         }
-        // Conform other node
+
+        // Conform horizontal bar
         else if(HorizontalBar.IsHorizontal(line)){
+            if(pFlag){
+                pFlag = false;
+                MakeParagraph(node, line, pFlag);
+            }
+
             MakeHorizontalBar(node);
         }
 
-        //...
+        // Conform p tag
+        else if(!pFlag){
+            pFlag = true;
+            MakeParagraph(node, line, pFlag);
+        }
 
         // Else - just token
         else{
@@ -59,7 +102,6 @@ public class Parser {
         }
     }
 
-    //public static void tokenParser(Node node);
     private static void MakeHeader(Node node, String line){
         int pos = 0;
         for(int i = 0; i <line.length();i++){
@@ -84,7 +126,31 @@ public class Parser {
         HorizontalBar bar = new HorizontalBar();
         node.nodes.add(bar);
     }
+    private static void MakeCodeBlock(Node node, boolean flag){
+        CodeBlock codeBlock = new CodeBlock();
 
+        // if flag is true -> in use so </codeBlock>
+        // else flag is false -> do not use so <codeBlock>
+        if(flag)
+            codeBlock.tag = false;
+        else
+            codeBlock.tag = true;
+
+        node.nodes.add(codeBlock);
+    }
+    private static void MakeParagraph(Node node, String line, boolean flag){
+        Paragraph p = new Paragraph();
+        if(flag) {
+            node.nodes.add(p);
+            Node tempNode = new Node();
+            tempNode.token = Token.create(line);
+            node.nodes.add(tempNode);
+        }
+        else{
+            p.tag = flag;
+            node.nodes.add(p);
+        }
+    }
 
     private static void MakeStyle(Token tok){
         int idx = 0;
