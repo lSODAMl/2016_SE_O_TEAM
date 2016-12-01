@@ -1,4 +1,4 @@
-//package IR;
+package IR;
 
 public class CodeBlock extends Node{
     public boolean tag = true;
