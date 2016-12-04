@@ -1,4 +1,4 @@
-//package IR;
+package IR;
 
 public class Style extends Token{
     // <em>: '_' | <strong>: '__'
@@ -13,6 +13,8 @@ public class Style extends Token{
 
     public static boolean IsStyle(String s) {
         if (s.matches(".*_.*_.*") || s.matches(".*__.*__.*"))
+            return true;
+        else if(s.matches(".*\\*.*\\*.*") || s.matches(".*\\*\\*.*\\*\\*.*"))
             return true;
         else
             return false;
