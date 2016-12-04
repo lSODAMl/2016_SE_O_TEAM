@@ -19,7 +19,9 @@
   
   <!-- Compile the java code in ${src.dir} into ${bin.dir} -->
   <target name="compile" depends="clean, init" description="compile java sources">
-    <javac srcdir="${source.dir}" destdir="${bin.dir}"/>
+    <javac srcdir="${source.dir}" destdir="${bin.dir}">
+    <classpath path = "${basedir}/lib/jtidy-r938.jar"/>
+    </javac> 
   </target>
 
   <!-- Delete the bin & doc directories & jar and Emacs backup (*~) files -->
@@ -32,8 +34,21 @@
     </delete>
   </target>
 
-  <target name="dist" depends="compile" description="generate jar file">
-    <jar jarfile="${jar.dir}/markdown.jar" basedir="${source.dir}"/>
-  </target>
+<!--   <target name="dist" depends="compile" description="generate jar file">
+    <jar jarfile="${jar.dir}/markdown.jar" basedir="${bin.dir}"/>
+    <zipgroupfileset dir="lib" includes="jtidy-r938.jar"/>
+       <manifest>
+        <attribute name="Main-Class" value="Main"/>
+    </manifest>
+  </target> -->
+<target name="dist" depends="compile" description="generate jar file">
+  <jar destfile = "${jar.dir}/project.jar" basedir="${bin.dir}" excludes = "${basedir}/lib/**">
+    <zipgroupfileset dir="lib" includes="jtidy-r938.jar"/>
+    <manifest>
+        <attribute name="Main-Class" value="Main"/>
+    </manifest>
+  </jar>
+</target>
+
 
 </project>
