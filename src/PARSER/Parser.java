@@ -1,4 +1,4 @@
-//package PARSER;
+// package PARSER;
 
 import java.io.*;
 import java.io.File;
@@ -8,6 +8,10 @@ import IR.*;
 public class Parser {
     static private boolean codeFlag = false;
     static private boolean pFlag = false;
+    static private int bqLevel = 0;
+    static private int bqCount = 0;
+    static private int listLevel = 0;
+    static public ArrayList<Integer> listType = new ArrayList<Integer>();
 
     public static void docParser(String fileName, Document doc){
         String directory = "../";
@@ -25,6 +29,23 @@ public class Parser {
     }
     public static void nodeParser(Node node){
         String line = node.line;
+        int tempLevel;
+        int tempType;
+
+        // block quotes >
+        if((tempLevel =BlockQuotes.IsBlockQuotes(line,bqLevel)) > bqLevel){
+            bqLevel = tempLevel;
+            bqCount++;
+            int idx = BlockQuotes.GetIdx();
+            line = line.substring(idx);
+            MakeBlockQuotes(node,line,bqLevel);
+        }
+
+        if(BlockQuotes.IsEndBlockQuotes(line)){
+            EndBlockQuotes(node,bqCount);
+            bqCount = 0;
+            bqLevel = 0;
+        }
 
         // Conform code block
         // </CodeBlock>
@@ -50,6 +71,60 @@ public class Parser {
         }
         ////////////////////
 
+        // List
+
+        else if(List.IsList(line)){
+            if(pFlag){
+                pFlag = false;
+                MakeParagraph(node, line, pFlag);
+            }
+            tempLevel = List.WhatIsLevel(line,listLevel);
+            // line: 1. text or * text
+            line = line.substring(List.getIdx());
+            tempType = List.WhatIsType(line);
+            // line: just text
+            line = line.substring(2);
+
+            if(tempLevel > 0){
+                listLevel++;
+                if(tempType == 1)
+                    listType.add(0,1);
+                else
+                    listType.add(0,2);
+
+                MakeList(node,line,1,listType);
+            }
+            else if(tempLevel == 0) {
+                MakeList(node, line, 0, listType);
+            }
+            else {
+                if(tempType == 1)
+                    listType.add(0,1);
+                else
+                    listType.add(0,2);
+
+                MakeList(node,line,tempLevel/2,listType);
+                listLevel = listLevel+ tempLevel/2;
+            }
+        }
+
+        else if(List.IsEndList(line)){
+            int size = listType.size();
+            for(int i = 0; i < size; i++){
+                int type = listType.get(0);
+                List list = new List();
+                if(type == 1)
+                    list.ul = -1;
+                else
+                    list.ol = -1;
+                node.nodes.add(list);
+                listType.remove(0);
+                listLevel = 0;
+            }
+        }
+        ////////////////////
+
+
         // Conform header
         else if(Header.IsHeader(line)){
             if(pFlag){
@@ -72,7 +147,7 @@ public class Parser {
         }
 
         // Conform p tag
-        else if(!pFlag){
+        else if(!pFlag&& bqCount == 0 && line.length() != 0){
             pFlag = true;
             MakeParagraph(node, line, pFlag);
         }
@@ -80,11 +155,10 @@ public class Parser {
         // Else - just token
         else{
             Node tempNode = new Node();
-            tempNode.token = Token.create(node.line);
+            tempNode.token = Token.create(line);
             node.nodes.add(tempNode);
         }
     }
-
     public static void tokenParser(Node node){
         String s = node.token.tempStr;
         // image
@@ -127,7 +201,7 @@ public class Parser {
         node.nodes.add(bar);
     }
     private static void MakeCodeBlock(Node node, boolean flag){
-        CodeBlock codeBlock = new CodeBlock();
+       CodeBlock codeBlock = new CodeBlock();
 
         // if flag is true -> in use so </codeBlock>
         // else flag is false -> do not use so <codeBlock>
@@ -151,7 +225,108 @@ public class Parser {
             node.nodes.add(p);
         }
     }
+    private static void MakeBlockQuotes(Node node,String line, int level){
+        BlockQuotes bq = new BlockQuotes();
+        bq.tag = true;
+        bq.level = level;
+        node.nodes.add(bq);
+    }
+    private static void EndBlockQuotes(Node node, int count){
+        for(int i = 0; i < count; i++){
+            BlockQuotes bq = new BlockQuotes();
+            bq.tag = false;
+            node.nodes.add(bq);
+        }
+    }
 
+    private static void MakeList(Node node, String line, int state, ArrayList<Integer> type){
+        List list = new List();
+
+        // increase level & add list
+        if(state == 1){
+            if(type.get(0) == 1)
+                list.ul = 1;
+            else
+                list.ol = 1;
+
+            // add <ul> or <ol>
+            node.nodes.add(list);
+
+            // add <li>
+            list = new List();
+            list.li = 1;
+            node.nodes.add(list);
+
+            // add text(Token)
+            Node tempNode = new Node();
+            tempNode.token = Token.create(line);
+            node.nodes.add(tempNode);
+
+            // add </li>
+            list = new List();
+            list.li = -1;
+            node.nodes.add(list);
+        }
+
+        // decrease level & add list
+        else if(state < 0){
+            int end = -state;
+
+            int listType = 0;
+            for(int i = 0; i < end; i++){
+                listType = type.get(1);
+                list = new List();
+                if(listType == 1)
+                    list.ul = -1;
+                else
+                    list.ol = -1;
+                node.nodes.add(list);
+                type.remove(1);
+            }
+
+            list = new List();
+
+            if(type.get(0) == 1)
+                list.ul = 1;
+            else
+                list.ol = 1;
+
+            // add <ul> or <ol>
+            node.nodes.add(list);
+
+            // add <li>
+            list = new List();
+            list.li = 1;
+            node.nodes.add(list);
+
+            // add text(Token)
+            Node tempNode = new Node();
+            tempNode.token = Token.create(line);
+            node.nodes.add(tempNode);
+
+            // add </li>
+            list = new List();
+            list.li = -1;
+            node.nodes.add(list);
+        }
+
+        // current level
+        else{
+            // add <li>
+            list.li = 1;
+            node.nodes.add(list);
+
+            // add text(Token)
+            Node tempNode = new Node();
+            tempNode.token = Token.create(line);
+            node.nodes.add(tempNode);
+
+            // add </li>
+            list = new List();
+            list.li = -1;
+            node.nodes.add(list);
+        }
+    }
     private static void MakeStyle(Token tok){
         int idx = 0;
         String symbol = new String(), s = tok.tempStr;
@@ -209,6 +384,59 @@ public class Parser {
                     }
                 }
             }
+
+            else if (s.matches(".*\\*.*\\*.*") || s.matches(".*\\*\\*.*\\*\\*.*")){
+                idx = s.indexOf('*');
+                if(s.charAt(idx + 1) == '*')
+                    symbol = "**";
+
+                else
+                    symbol = "*";
+
+                if(idx != 0){
+                    if(symbol.equals("*")){
+                        tok.tokens.add(new Text(s.substring(0,idx)));
+                        tok.tokens.add(new Style(symbol, true));
+                        s = s.substring(idx + 1);
+                        idx = s.indexOf(symbol);
+                        tok.tokens.add(new Text(s.substring(0,idx)));
+                        tok.tokens.add(new Style(symbol,false));
+                        s = s.substring(idx + 1);
+                    }
+
+                    else{
+                        tok.tokens.add(new Text(s.substring(0,idx)));
+                        tok.tokens.add(new Style(symbol, true));
+                        s = s.substring(idx + 2);
+                        idx = s.indexOf(symbol);
+                        tok.tokens.add(new Text(s.substring(0,idx)));
+                        tok.tokens.add(new Style(symbol,false));
+                        s = s.substring(idx + 2);
+                    }
+                }
+
+
+                else{
+                    if(symbol.equals("*")){
+                        tok.tokens.add(new Style(symbol, true));
+                        s = s.substring(idx + 1);
+                        idx = s.indexOf(symbol);
+                        tok.tokens.add(new Text(s.substring(0,idx)));
+                        tok.tokens.add(new Style(symbol,false));
+                        s = s.substring(idx + 1);
+                    }
+
+                    else{
+                        tok.tokens.add(new Style(symbol, true));
+                        s = s.substring(idx + 2);
+                        idx = s.indexOf(symbol);
+                        tok.tokens.add(new Text(s.substring(0,idx)));
+                        tok.tokens.add(new Style(symbol,false));
+                        s = s.substring(idx + 2);
+                    }
+                }
+            }
+
             // style is not exist
             else {
                 if(!s.equals(""))
@@ -257,7 +485,6 @@ public class Parser {
             tok.tokens.add(img);
         }
     }
-
     private static void MakeText(Token tok){
         tok.tokens.add(new Text(tok.tempStr));
     }
