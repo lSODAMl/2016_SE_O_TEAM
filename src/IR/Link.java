@@ -1,5 +1,3 @@
-//package IR;
-
 /**
  * Created by LeeDongYoung on 2016-11-25.
  */
@@ -11,6 +9,9 @@ public class Link extends Token{
         if(str.matches("\\[.*\\]\\(http://.*\\)"))
             return true;
 
+        else if(str.matches("\\[.*\\]\\(https://.*\\)"))
+            return true;
+        
         else if(str.matches("www\\..*"))
             return true;
 
