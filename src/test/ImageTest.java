@@ -1,10 +1,7 @@
-package test;
-
+//package TEST;
 import static org.junit.Assert.*;
-
-import org.junit.Test;
-
-import IR.Image;
+import org.junit.*;
+import java.util.*;
 
 public class ImageTest {
 
