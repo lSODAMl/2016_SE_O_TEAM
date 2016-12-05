@@ -5,12 +5,13 @@ public class Image extends Token{
     public String src = new String();
     public boolean tag = true;
     public static boolean IsImage(String str){
-        if(str.matches("!\\[.*\\]\\(http://.*\\)")){
+        if(str.matches("!\\[.*\\]\\(http://.*\\)"))
             return true;
-        }
-        else{
+        else if(str.matches("!\\[.*\\]\\(https://.*\\)"))
+        	return true;
+        else
             return false;
-        }
+        
     }
 
 }
