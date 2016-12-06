@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-//import IR.CodeBlock;
+import IR.CodeBlock;
 
 
 public class CodeBlockTest {

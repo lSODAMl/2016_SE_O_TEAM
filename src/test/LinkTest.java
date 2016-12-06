@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-//import IR.Link;
+import IR.Link;
 
 public class LinkTest {
 	private String link1 = "www.naver.com";

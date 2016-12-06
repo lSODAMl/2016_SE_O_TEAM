@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-//import IR.Style;
+import IR.Style;
 
 
 public class StyleTest {
