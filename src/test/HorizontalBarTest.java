@@ -1,8 +1,10 @@
-//package TEST;
-import static org.junit.Assert.*;
-import org.junit.*;
-import java.util.*;
+//package test;
 
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+//import IR.HorizontalBar;
 
 public class HorizontalBarTest { 
 	

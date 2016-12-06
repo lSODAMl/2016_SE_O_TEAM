@@ -1,7 +1,10 @@
-//package TEST;
+//package test;
+
 import static org.junit.Assert.*;
-import org.junit.*;
-import java.util.*;
+
+import org.junit.Test;
+
+//import IR.Link;
 
 public class LinkTest {
 	private String link1 = "www.naver.com";
