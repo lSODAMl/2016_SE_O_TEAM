@@ -73,8 +73,10 @@
       <test name="CodeBlockTest"/>
       <test name="HorizontalBarTest"/>
       <test name="LinkTest"/>
-      <test name="ParserTest"/>
+      <test name="TokenTest"/>
       <test name="StyleTest"/>
+      <test name="ListTest"/>
+      <test name="NodeTest"/>
       <test name="ImageTest"/>
 
     </junit>
@@ -136,24 +138,131 @@
     </jacoco:coverage>
 
     <jacoco:coverage>
-      <java classname="Parser" fork="true">
+      <java classname="HorizontalBar" fork="true">
       <classpath path="bin" />
       <classpath path="test" />
       <classpath path="lib/junit-4.12.jar" />
       <classpath path="lib/hamcrest-core-1.3.jar" />
       </java>
     </jacoco:coverage>
-
-
     <jacoco:coverage>
       <junit fork="true" forkmode="once">
-        <test name="ParserTest"/>
+        <test name="HorizontalBarTest"/>
         <classpath path="bin" />
         <classpath path="test" />
         <classpath path="lib/junit-4.12.jar" />
         <classpath path="lib/hamcrest-core-1.3.jar" />
       </junit>
     </jacoco:coverage>
+
+    <jacoco:coverage>
+      <java classname="Link" fork="true">
+      <classpath path="bin" />
+      <classpath path="test" />
+      <classpath path="lib/junit-4.12.jar" />
+      <classpath path="lib/hamcrest-core-1.3.jar" />
+      </java>
+    </jacoco:coverage>
+    <jacoco:coverage>
+      <junit fork="true" forkmode="once">
+        <test name="LinkTest"/>
+        <classpath path="bin" />
+        <classpath path="test" />
+        <classpath path="lib/junit-4.12.jar" />
+        <classpath path="lib/hamcrest-core-1.3.jar" />
+      </junit>
+    </jacoco:coverage>
+
+    <jacoco:coverage>
+      <java classname="Token" fork="true">
+      <classpath path="bin" />
+      <classpath path="test" />
+      <classpath path="lib/junit-4.12.jar" />
+      <classpath path="lib/hamcrest-core-1.3.jar" />
+      </java>
+    </jacoco:coverage>
+    <jacoco:coverage>
+      <junit fork="true" forkmode="once">
+        <test name="TokenTest"/>
+        <classpath path="bin" />
+        <classpath path="test" />
+        <classpath path="lib/junit-4.12.jar" />
+        <classpath path="lib/hamcrest-core-1.3.jar" />
+      </junit>
+    </jacoco:coverage>
+
+    <jacoco:coverage>
+      <java classname="Style" fork="true">
+      <classpath path="bin" />
+      <classpath path="test" />
+      <classpath path="lib/junit-4.12.jar" />
+      <classpath path="lib/hamcrest-core-1.3.jar" />
+      </java>
+    </jacoco:coverage>
+    <jacoco:coverage>
+      <junit fork="true" forkmode="once">
+        <test name="StyleTest"/>
+        <classpath path="bin" />
+        <classpath path="test" />
+        <classpath path="lib/junit-4.12.jar" />
+        <classpath path="lib/hamcrest-core-1.3.jar" />
+      </junit>
+    </jacoco:coverage>
+
+    <jacoco:coverage>
+      <java classname="List" fork="true">
+      <classpath path="bin" />
+      <classpath path="test" />
+      <classpath path="lib/junit-4.12.jar" />
+      <classpath path="lib/hamcrest-core-1.3.jar" />
+      </java>
+    </jacoco:coverage>
+    <jacoco:coverage>
+      <junit fork="true" forkmode="once">
+        <test name="ListTest"/>
+        <classpath path="bin" />
+        <classpath path="test" />
+        <classpath path="lib/junit-4.12.jar" />
+        <classpath path="lib/hamcrest-core-1.3.jar" />
+      </junit>
+    </jacoco:coverage>
+
+    <jacoco:coverage>
+      <java classname="Node" fork="true">
+      <classpath path="bin" />
+      <classpath path="test" />
+      <classpath path="lib/junit-4.12.jar" />
+      <classpath path="lib/hamcrest-core-1.3.jar" />
+      </java>
+    </jacoco:coverage>
+    <jacoco:coverage>
+      <junit fork="true" forkmode="once">
+        <test name="NodeTest"/>
+        <classpath path="bin" />
+        <classpath path="test" />
+        <classpath path="lib/junit-4.12.jar" />
+        <classpath path="lib/hamcrest-core-1.3.jar" />
+      </junit>
+    </jacoco:coverage>
+
+    <jacoco:coverage>
+      <java classname="Image" fork="true">
+      <classpath path="bin" />
+      <classpath path="test" />
+      <classpath path="lib/junit-4.12.jar" />
+      <classpath path="lib/hamcrest-core-1.3.jar" />
+      </java>
+    </jacoco:coverage>
+    <jacoco:coverage>
+      <junit fork="true" forkmode="once">
+        <test name="ImageTest"/>
+        <classpath path="bin" />
+        <classpath path="test" />
+        <classpath path="lib/junit-4.12.jar" />
+        <classpath path="lib/hamcrest-core-1.3.jar" />
+      </junit>
+    </jacoco:coverage>
+
 
 
 
