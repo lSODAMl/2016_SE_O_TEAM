@@ -464,6 +464,7 @@ public class Parser {
 
         else{
             Link link = new Link();
+            link.linkName = s;
             link.href = s;
             tok.tokens.add(link);
         }

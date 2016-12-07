@@ -92,6 +92,7 @@ public class Main {
                  tidy1.setSmartIndent(true);
                  tidy1.setIndentAttributes(false);
                  tidy1.setWraplen(0);
+                 tidy1.getErrout();
                  ByteArrayOutputStream out1 = new ByteArrayOutputStream(1024);
                  tidy1.parse(is, out1);
 
