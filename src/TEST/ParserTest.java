@@ -4,40 +4,113 @@ import org.junit.Test;
 import java.util.*;
 
 public class ParserTest {
-
+/*
 	@Test
 	public void docParserTest(){
 		// directory -> file -> ioException
+		Parser parser = new Parser();
+		String fileName = "a.md";
+		Document doc = new Document();
+
+		parser.docParser(fileName, doc);
+
+
+
+
 	}
 
 	@Test
 	public void nodeParserTest(){
 		// blockquotes -> codeblock -> list
 		// header -> hr bar -> paragraph
-	}
+		Parser parser = new Parser();
+		Node node = new Node();
 
+
+	}
+*/
 	@Test
 	public void tokenParserTest(){
 		// img -> link -> style -> text
+
+		Parser parser = new Parser();
+
+		// img case
+		Node node_img = new Node();
+		node_img.token.tempStr = "![Image of Yaktocat](http://octodex.github.com/images/yaktocat.png)";
+		String str1 = node_img.token.tempStr;
+		
+		parser.tokenParser(node_img);
+		//System.out.println("size" + node_img.token.tokens.size());
+		assertEquals(true, node_img.token.tokens.get(0).getClass().getSimpleName().equals("Image"));
+		//System.out.println(node_img.token.tokens.get(i).getClass().getSimpleName());
+
+
+		// link case
+		Node node_link = new Node();
+		node_link.token.tempStr = "[GitHub](http://github.com)";
+		String str2 = node_link.token.tempStr;
+
+		parser.tokenParser(node_link);
+		assertEquals(true, node_link.token.tokens.get(0).getClass().getSimpleName().equals("Link"));
+
+
+		// style case
+		Node node_style = new Node();
+		node_style.token.tempStr = "software engineering is ** interesting **";
+		String str3 = node_style.token.tempStr;
+
+		parser.tokenParser(node_style);
+
+		boolean check = false;
+		for( int i = 0; i< node_style.token.tokens.size(); i++){
+			check = node_style.token.tokens.get(i).getClass().getSimpleName().equals("Style");
+			// System.out.println(node_style.token.tokens.get(i).getClass().getSimpleName() +" - " + check);
+
+			if( check == true ){
+				assertEquals(true, node_style.token.tokens.get(i).getClass().getSimpleName().equals("Style"));
+
+			}else{
+				assertEquals(true, node_style.token.tokens.get(i).getClass().getSimpleName().equals("Text"));
+			}
+		}
+
+
+		// text case
+		Node node_text = new Node();
+		node_text.token.tempStr = "text text text";
+		String str4 = node_text.token.tempStr;
+
+		parser.tokenParser(node_text);
+
+		String check2 = "temp";
+		for(int i=0; i<node_text.token.tokens.size(); i++){
+			assertEquals(true, node_style.token.tokens.get(i).getClass().getSimpleName().equals("Text"));
+		}
+
 	}
 
-
-	// size of the header case
 	@Test
 	public void MakeHeaderTest() {
 
 		Parser parser = new Parser();
+
 		String str = "#### h4";
 		Node node = new Node();
 		parser.MakeHeader(node , str);
 
-		String node_name = node.nodes.get(0).getClass().getSimpleName();
-		boolean check = node_name.equals("Header");
+		// check <header>
+		String node_start = node.nodes.get(0).getClass().getSimpleName();
+		boolean check = node_start.equals("Header");
 		assertEquals(true, check);
+
+ 		// check </header>
+		String node_end = node.nodes.get(node.nodes.size()-1).getClass().getSimpleName();
+		boolean check2 = node_end.equals("Header");
+		assertEquals(true, check2);
 
 	}
 
-	// temp completed
 	@Test
 	public void MakeHorizontalBarTest(){
 		Parser parser = new Parser();
@@ -53,30 +126,40 @@ public class ParserTest {
 
 	}
 
-	// code open / close case
 	@Test
 	public void MakeCodeBlockTest(){
 
-		// case1 : cFlag == true
 		Parser parser = new Parser();
-		boolean cFlag = true;
+
+		// case1 : <codeblock>
+		boolean cFlag = false;
 		Node node = new Node();
 		parser.MakeCodeBlock(node, cFlag);
 		
-		String node_name = node.nodes.get(0).getClass().getSimpleName();
+		String node_start = node.nodes.get(0).getClass().getSimpleName();
 		//boolean flag = node.nodes.get(0).tag;
 		// System.out.println(node_name);
-		boolean check = node_name.equals("CodeBlock");
+		boolean check = node_start.equals("CodeBlock");
 		assertEquals(true, check);
 
-		// case : cFlag == false
+		// case : </codeblock>
+		boolean cFlag2 = false;
+		Node node2 = new Node();
+		parser.MakeCodeBlock(node2, cFlag2);
+
+		String node_end = node.nodes.get(0).getClass().getSimpleName();
+		boolean check2 = node_end.equals("CodeBlock");
+		assertEquals(true,check2);
 
 	}
 
-	// just open case
+
+	// have to do
 	@Test
 	public void MakeParagraphTest(){
 		Parser parser = new Parser();
+
+		// case_1 : <p> tag
 		Node node = new Node();
 		String line = "plain text";
 		boolean pFlag = true;
@@ -84,14 +167,25 @@ public class ParserTest {
 		parser.MakeParagraph(node, line, pFlag);
 
 		String node_name = node.nodes.get(0).getClass().getSimpleName();
-		// System.out.println(node_name);
+		//System.out.println(node_name);
 		boolean check = node_name.equals("Paragraph");
 		assertEquals(true, check);
 
-		// case : pFlag == false
+/*		
+		// case_2 : pFlag == false , in the <p> tag
+		Node node2 = new Node();
+		String line2 = "in the paragraph";
+		boolean pFlag2 = false;
+
+		parser.MakeParagraph(node2, line2, pFlag2);
+
+		String node_in = node2.nodes.get(0).getClass().getSimpleName();
+		System.out.println(node_in);
+		boolean check2 = node_in.equals("Paragraph");
+		assertEquals(false, check2);
+		*/
 	}
 
-	// end - BlockQuotes
 	@Test
 	public void MakeBlockQuotesTest(){
 		Parser parser = new Parser();
