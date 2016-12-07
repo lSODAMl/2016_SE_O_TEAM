@@ -78,13 +78,13 @@
       <test name="ListTest"/>
       <test name="NodeTest"/>
       <test name="ImageTest"/>
-
+      <test name="ParserTest"/>
     </junit>
   </target>
 
   <target name="jacoco_test" depends ="test">
     <jacoco:coverage>
-      <java classname="List" fork="true">
+      <java classname="Parser" fork="true">
       <classpath path="bin" />
       <classpath path="test" />
       <classpath path="lib/junit-4.12.jar" />
@@ -93,7 +93,7 @@
     </jacoco:coverage>
     <jacoco:coverage>
       <junit fork="true" forkmode="once">
-        <test name="ListTest"/>
+        <test name="ParserTest"/>
         <classpath path="bin" />
         <classpath path="test" />
         <classpath path="lib/junit-4.12.jar" />
