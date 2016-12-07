@@ -2,8 +2,8 @@
 
 public class PlainVisitor implements MDElementVisitor {
 
-	CodeGenerator codeGen = new CodeGenerator(Main.cli);
-	private static int i=0,j=0,k=0,l=0;
+	public CodeGenerator codeGen = new CodeGenerator(Main.cli);
+	public static int i=0,j=0,k=0,l=0;
 
 	public void visitDocument(Document e)
 	{

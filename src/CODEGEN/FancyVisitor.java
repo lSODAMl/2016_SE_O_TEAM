@@ -2,9 +2,9 @@
 
 public class FancyVisitor implements MDElementVisitor {
 
-	CodeGenerator codeGen = new CodeGenerator(Main.cli);
-	static int i=0,j=0,k=0,l=0;
-	private String color;
+	public CodeGenerator codeGen = new CodeGenerator(Main.cli);
+	public static int i=0,j=0,k=0,l=0;
+	public String color;
 
 	public void visitDocument(Document e)
 	{
