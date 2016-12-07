@@ -7,6 +7,7 @@ import org.junit.Test;
 //import IR.Link;
 
 public class LinkTest {
+	static Link link = new Link();
 	private String link1 = "www.naver.com";
 	private String link2 = "[Wiki](https://en.wikipedia.org/wiki/Main_Page)";
 
@@ -15,6 +16,11 @@ public class LinkTest {
 
 	private String link5 = "hisnet.handong.edu";
 	private String link6 = "[Github](https://github.com/lSODAMl/2016_SE_O_TEAM)";
+	/*
+	@BeforeClass public static void justBefore(){
+	    link.tag = Link.IsLink("www.naver.com");
+	}
+	*/
 	
 	@Test
 	public void IsLinkTest(){

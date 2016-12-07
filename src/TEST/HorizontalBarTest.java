@@ -19,6 +19,7 @@ public class HorizontalBarTest {
 		assertFalse("HorizontalBarfailed",  HorizontalBar.IsHorizontal("***---"));
 		assertFalse("HorizontalBarfailed",  HorizontalBar.IsHorizontal("===---"));
 
+		assertFalse("HorizontalBarfailed",  HorizontalBar.IsHorizontal("=="));
 	}
 
 }
