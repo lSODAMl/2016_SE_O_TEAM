@@ -6,11 +6,11 @@ import java.util.ArrayList;
 //import IR.*;
 
 public class Parser {
-    static private boolean codeFlag = false;
-    static private boolean pFlag = false;
-    static private int bqLevel = 0;
-    static private int bqCount = 0;
-    static private int listLevel = 0;
+    static public boolean codeFlag = false;
+    static public boolean pFlag = false;
+    static public int bqLevel = 0;
+    static public int bqCount = 0;
+    static public int listLevel = 0;
     static public ArrayList<Integer> listType = new ArrayList<Integer>();
 
     public static void docParser(String fileName, Document doc){
@@ -27,6 +27,7 @@ public class Parser {
             System.exit(1);
         }
     }
+
     public static void nodeParser(Node node){
         String line = node.line;
         int tempLevel;
@@ -159,6 +160,7 @@ public class Parser {
             node.nodes.add(tempNode);
         }
     }
+
     public static void tokenParser(Node node){
         String s = node.token.tempStr;
         // image
@@ -213,6 +215,7 @@ public class Parser {
 
         node.nodes.add(codeBlock);
     }
+
     public static void MakeParagraph(Node node, String line, boolean flag){
         Paragraph p = new Paragraph();
         if(flag) {
@@ -226,6 +229,7 @@ public class Parser {
             node.nodes.add(p);
         }
     }
+
     public static void MakeBlockQuotes(Node node,String line, int level){
         BlockQuotes bq = new BlockQuotes();
         bq.tag = true;
@@ -328,6 +332,7 @@ public class Parser {
             node.nodes.add(list);
         }
     }
+
     public static void MakeStyle(Token tok){
         int idx = 0;
         String symbol = new String(), s = tok.tempStr;
@@ -452,6 +457,7 @@ public class Parser {
         String s = tok.tempStr;
         String href = new String();
         String linkName = new String();
+
         if(s.matches("\\[.*\\]\\(http://.*\\)")){
             int idx = s.indexOf("(");
             href = s.substring(idx +1,s.length()-1);
@@ -462,17 +468,19 @@ public class Parser {
             tok.tokens.add(link);
         }
 
-        else{
+        else if(s.matches("www.")){
             Link link = new Link();
             link.linkName = s;
             link.href = s;
             tok.tokens.add(link);
         }
+
         Link lnk = new Link();
         lnk.tag = false;
         tok.tokens.add(lnk);
 
     }
+
     public static void MakeImg(Token tok){
         String s = tok.tempStr;
         String altText = new String();
