@@ -3,7 +3,7 @@
 import java.io.File;
 
 public class CLI_Checker {
-    private int option = 0;
+    public int option = 0;
     public int input_count = 0;
     public boolean ErrCheck(String[] args){
         try {
@@ -54,21 +54,21 @@ public class CLI_Checker {
 
     }
 
-    private boolean CheckOutOfRange(String[]args){
+    public boolean CheckOutOfRange(String[]args){
         if(args.length == 0)
             return true;
         else
             return false;
     }
 
-    private boolean CheckHelp(String msg){
+    public boolean CheckHelp(String msg){
         if(msg.equals("-help"))
             return true;
         else
             return false;
     }
 
-    private int CheckOption(String[] args) {
+    public int CheckOption(String[] args) {
         int inputCount = 0, outputCount = 0, styleCount = 0, optionCount = 0;
         int inputPosition = 0, outputPosition = 0, stylePosition = 0;
 
@@ -112,7 +112,7 @@ public class CLI_Checker {
         return optionCount;
     }
 
-    private boolean CheckNormalization(String[] args){
+    public boolean CheckNormalization(String[] args){
         boolean flag = true;
         int i = 0;
 
@@ -160,7 +160,7 @@ public class CLI_Checker {
         return flag;
     }
 
-    private boolean CheckNameFormat(String[] args, int option){
+    public boolean CheckNameFormat(String[] args, int option){
         boolean flag = true;
         // Check md
         if(!CheckMD(args)){
@@ -185,7 +185,7 @@ public class CLI_Checker {
         return flag;
     }
 
-    private boolean CheckMD(String[] args){
+    public boolean CheckMD(String[] args){
         boolean flag = true;
         for(int i = 1; i < args.length;i++){
             if(args[i].equals("-o") || args[i].equals("-s")) {
@@ -201,7 +201,7 @@ public class CLI_Checker {
         return flag;
     }
 
-    private boolean CheckHTML(String[] args){
+    public boolean CheckHTML(String[] args){
         int output_position = 0;
         for(int i = 0; i < args.length;i++){
             if(args[i].equals("-o")) {
@@ -228,7 +228,7 @@ public class CLI_Checker {
         }
     }
 
-    private boolean CheckStyle(String[] args){
+    public boolean CheckStyle(String[] args){
         int style_position = 0;
         for(int i = 0; i < args.length;i++){
             if(args[i].equals("-s")) {
@@ -254,7 +254,7 @@ public class CLI_Checker {
         }
     }
 
-    private boolean CheckInputFile(String[] args){
+    public boolean CheckInputFile(String[] args){
         // Please change directory
         String directory ="../";
 
@@ -285,7 +285,7 @@ public class CLI_Checker {
         }
     }
 
-    private boolean CheckOverThanInput(String[] args){
+    public boolean CheckOverThanInput(String[] args){
         int inputCount = 0, outputCount = 0, styleCount = 0;
         for(int i = 0; i < args.length; i++){
             if(args[i].matches(".*md"))
