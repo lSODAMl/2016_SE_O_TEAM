@@ -72,8 +72,17 @@ public class Parser {
         }
         ////////////////////
 
-        // List
+    // Conform horizontal bar
+        else if(HorizontalBar.IsHorizontal(line)){
+            if(pFlag){
+                pFlag = false;
+                MakeParagraph(node, line, pFlag);
+            }
 
+            MakeHorizontalBar(node);
+        }
+
+        // List
         else if(List.IsList(line)){
             if(pFlag){
                 pFlag = false;
@@ -86,7 +95,7 @@ public class Parser {
             // line: just text
             line = line.substring(2);
 
-            if(tempLevel > 0){
+            if(tempLevel > 0){  // create ul / ol + li tag
                 listLevel++;
                 if(tempType == 1)
                     listType.add(0,1);
@@ -95,10 +104,10 @@ public class Parser {
 
                 MakeList(node,line,1,listType);
             }
-            else if(tempLevel == 0) {
+            else if(tempLevel == 0) { // current : create li tag
                 MakeList(node, line, 0, listType);
             }
-            else {
+            else { // decrease
                 if(tempType == 1)
                     listType.add(0,1);
                 else
@@ -135,16 +144,6 @@ public class Parser {
 
             MakeHeader(node, line);
             return;
-        }
-
-        // Conform horizontal bar
-        else if(HorizontalBar.IsHorizontal(line)){
-            if(pFlag){
-                pFlag = false;
-                MakeParagraph(node, line, pFlag);
-            }
-
-            MakeHorizontalBar(node);
         }
 
         // Conform p tag

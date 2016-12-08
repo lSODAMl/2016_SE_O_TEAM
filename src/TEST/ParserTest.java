@@ -18,17 +18,154 @@ public class ParserTest {
 
 
 	}
-
+*/
 	@Test
 	public void nodeParserTest(){
-		// blockquotes -> codeblock -> list
-		// header -> hr bar -> paragraph
-		Parser parser = new Parser();
-		Node node = new Node();
 
+		Parser parser = new Parser();
+
+		// check BlockQuotes 
+		// <blockquote>
+		Node node_bq = new Node();
+		node_bq.line = "> start blockquotes";
+		parser.bqLevel = 0;
+
+		parser.nodeParser(node_bq);
+		//System.out.println("bq : " + node_bq.nodes.get(0).getClass().getSimpleName());
+		assertEquals(true, node_bq.nodes.get(0).getClass().getSimpleName().equals("BlockQuotes"));
+
+		// </blockquote>
+		Node node_bq_end = new Node();
+		node_bq_end.line = "";
+
+		parser.nodeParser(node_bq_end);
+		// System.out.println("bq_end : "+  node_bq_end.nodes.get(node_bq_end.nodes.size()-1).getClass().getSimpleName());
+		for(int i=0; i<parser.bqLevel;i++)
+			assertEquals(true, node_bq_end.nodes.get(i).getClass().getSimpleName().equals("BlockQuotes"));
+		// ``````````
+
+
+		// check CodeBlock
+		// </p><codeblock>
+		Node node_cb = new Node();
+		node_cb.line = "```";
+		parser.codeFlag = false;
+		parser.pFlag = true;
+
+		parser.nodeParser(node_cb);
+		assertEquals(true, node_cb.nodes.get(0).getClass().getSimpleName().equals("Paragraph"));
+		assertEquals(true, node_cb.nodes.get(node_cb.nodes.size()-1).getClass().getSimpleName().equals("CodeBlock"));
+		// System.out.println("codeblock start -> "+ node_cb.nodes.get(0).getClass().getSimpleName());
+
+
+		// text between <codeblock>
+		Node node_code = new Node();
+		node_code.line = "function codeblock()";
+
+		parser.nodeParser(node_code);
+		assertEquals(false, node_code.nodes.get(0).getClass().getSimpleName().equals("CodeBlock"));
+
+
+		// </codeblock>
+		Node node_cb_end = new Node();
+		node_cb_end.line = "```";
+		parser.codeFlag = true;
+
+		parser.nodeParser(node_cb_end);
+		assertEquals(true, node_cb_end.nodes.get(0).getClass().getSimpleName().equals("CodeBlock"));
+		// ``````````
+
+		// check List
+		// create ol : </p><ul><li>text</li></ul>
+		Node node_list_ul = new Node();
+		node_list_ul.line = "* list_ul_create";
+		parser.pFlag = true;
+		parser.listLevel = 0;
+
+		parser.nodeParser(node_list_ul);
+		assertEquals(true, node_list_ul.nodes.get(0).getClass().getSimpleName().equals("Paragraph")); // </p>
+		assertEquals(true, node_list_ul.nodes.get(1).getClass().getSimpleName().equals("List")); // <ul>
+		assertEquals(true, node_list_ul.nodes.get(2).getClass().getSimpleName().equals("List")); // <li>
+
+		// List current ul : <li>text</li>
+		Node node_list_cur_ul = new Node();
+		node_list_cur_ul.line = "+ current_ul_list";
+
+		parser.nodeParser(node_list_cur_ul);
+		assertEquals(true, node_list_cur_ul.nodes.get(0).getClass().getSimpleName().equals("List")); // <li>
+		assertEquals(false, node_list_cur_ul.nodes.get(1).getClass().getSimpleName().equals("List")); // text
+		assertEquals(true, node_list_cur_ul.nodes.get(2).getClass().getSimpleName().equals("List"));  // </li>
+
+		// create ol : <ol><li>text</li></ol>
+		Node node_list_ol = new Node();
+		node_list_ol.line = "  1. list_ol_create";
+
+		parser.nodeParser(node_list_ol);
+		assertEquals(true, node_list_ol.nodes.get(0).getClass().getSimpleName().equals("List")); // <ol>
+		assertEquals(true, node_list_ol.nodes.get(1).getClass().getSimpleName().equals("List")); // <li>
+		assertEquals(false, node_list_ol.nodes.get(2).getClass().getSimpleName().equals("List")); // text
+		
+		// List current ol : <li>text</li>
+		Node node_list_cur_ol = new Node();
+		node_list_cur_ol.line = "  2. ol_second";
+
+		parser.nodeParser(node_list_cur_ol);
+		assertEquals(true, node_list_cur_ol.nodes.get(0).getClass().getSimpleName().equals("List")); // <li>
+		assertEquals(false, node_list_cur_ol.nodes.get(1).getClass().getSimpleName().equals("List")); // text
+		assertEquals(true, node_list_cur_ol.nodes.get(2).getClass().getSimpleName().equals("List")); // </li>
+
+		// check level
+		System.out.println("level ->" + parser.listLevel);
+
+		// List decrease : </ol><ul><li>text</li>
+		Node node_list_dec = new Node();
+		node_list_dec.line = "- dec_list";
+
+		parser.nodeParser(node_list_dec);
+		assertEquals(true, node_list_dec.nodes.get(0).getClass().getSimpleName().equals("List"));
+		assertEquals(true, node_list_dec.nodes.get(1).getClass().getSimpleName().equals("List"));
+		assertEquals(true, node_list_dec.nodes.get(2).getClass().getSimpleName().equals("List"));
+
+		// List end : </ol></ul>
+		Node node_list_end = new Node();
+		node_list_end.line = "";
+
+		parser.nodeParser(node_list_end);
+		assertEquals(true, node_list_end.nodes.get(0).getClass().getSimpleName().equals("List"));
+		assertEquals(true, node_list_end.nodes.get(1).getClass().getSimpleName().equals("List"));
+		// ``````````
+
+		// Header : </p><h5>
+		Node node_h = new Node();
+		node_h.line = "##### h5";
+		parser.pFlag = true;
+
+		parser.nodeParser(node_h);
+		assertEquals(true, node_h.nodes.get(0).getClass().getSimpleName().equals("Paragraph"));
+		assertEquals(true, node_h.nodes.get(node_h.nodes.size()-1).getClass().getSimpleName().equals("Header"));
+
+		// Horizontal Bar : </p><hr>
+		Node node_hr = new Node();
+		node_hr.line = "- - - - -";
+		parser.pFlag = true;
+
+		parser.nodeParser(node_hr);
+		assertEquals(true, node_hr.nodes.get(0).getClass().getSimpleName().equals("Paragraph"));
+		assertEquals(true, node_hr.nodes.get(node_hr.nodes.size()-1).getClass().getSimpleName().equals("HorizontalBar"));
+		// System.out.println("hr : " + node_hr.nodes.get(0).getClass().getSimpleName());
+
+
+		// Paragraph
+		Node node_p = new Node();
+		node_p.line = "it is paragraph";
+		parser.pFlag = false;
+		parser.bqCount = 0;
+
+		parser.nodeParser(node_p);
+		assertEquals(true, node_p.nodes.get(0).getClass().getSimpleName().equals("Paragraph"));
 
 	}
-*/
+
 	@Test
 	public void tokenParserTest(){
 		// img -> link -> style -> text
@@ -98,7 +235,7 @@ public class ParserTest {
 		String str = "#### h4";
 		Node node = new Node();
 		parser.MakeHeader(node , str);
-
+/*
 		// check <header>
 		String node_start = node.nodes.get(0).getClass().getSimpleName();
 		boolean check = node_start.equals("Header");
@@ -108,6 +245,20 @@ public class ParserTest {
 		String node_end = node.nodes.get(node.nodes.size()-1).getClass().getSimpleName();
 		boolean check2 = node_end.equals("Header");
 		assertEquals(true, check2);
+*/
+		String node_ = "temp";
+		boolean check = false;
+		for(int i=0; i<node.nodes.size();i++){
+			if( ( i ==0  ) || ( i == node.nodes.size()-1 )){
+				node_ = node.nodes.get(i).getClass().getSimpleName();
+				check = node_.equals("Header");
+				assertEquals(true, check);
+			}else{
+				node_ = node.nodes.get(i).getClass().getSimpleName();
+				check = node_.equals("Header");
+				assertEquals(false, check);
+			}
+		}
 
 	}
 
@@ -143,11 +294,12 @@ public class ParserTest {
 		assertEquals(true, check);
 
 		// case : </codeblock>
-		boolean cFlag2 = false;
+		boolean cFlag2 = true;
 		Node node2 = new Node();
 		parser.MakeCodeBlock(node2, cFlag2);
 
-		String node_end = node.nodes.get(0).getClass().getSimpleName();
+		String node_end = node2.nodes.get(0).getClass().getSimpleName();
+		// System.out.println("</codeblock> : " + node_end);
 		boolean check2 = node_end.equals("CodeBlock");
 		assertEquals(true,check2);
 
@@ -171,19 +323,19 @@ public class ParserTest {
 		boolean check = node_name.equals("Paragraph");
 		assertEquals(true, check);
 
-/*		
-		// case_2 : pFlag == false , in the <p> tag
+	
+		// case_2 : pFlag == false , </p> tag
 		Node node2 = new Node();
-		String line2 = "in the paragraph";
+		String line2 = "end the paragraph";
 		boolean pFlag2 = false;
 
 		parser.MakeParagraph(node2, line2, pFlag2);
 
-		String node_in = node2.nodes.get(0).getClass().getSimpleName();
-		System.out.println(node_in);
+		String node_in = node2.nodes.get(node2.nodes.size()-1).getClass().getSimpleName();
+		// System.out.println(node_in);
 		boolean check2 = node_in.equals("Paragraph");
-		assertEquals(false, check2);
-		*/
+		assertEquals(true, check2);
+		
 	}
 
 	@Test
@@ -240,7 +392,7 @@ public class ParserTest {
 		Parser parser = new Parser();
 
 		// case_1
-		String str1 = "**test1**hey";
+		String str1 = "**hello**first**test1**hey";
 
 		Token token1 = new Token();
 		token1.tempStr = str1;
@@ -259,8 +411,9 @@ public class ParserTest {
 		}
 
 
+
 		// case_2
-		String str2 = "hey*test2*hey";
+		String str2 = "*second*hey*test2*hey";
 
 		Token token2 = new Token();
 		token2.tempStr = str2;
@@ -280,7 +433,7 @@ public class ParserTest {
 
 
 		// case_3
-		String str3 = "__test3__test";
+		String str3 = "__test3__is__third__test";
 
 		Token token3 = new Token();
 		token3.tempStr = str3;
@@ -300,7 +453,7 @@ public class ParserTest {
 
 
 		// case_4
-		String str4 = "_test4_hey";
+		String str4 = "_test4_is_fourth_hey";
 
 		Token token4 = new Token();
 		token4.tempStr = str4;
@@ -341,27 +494,28 @@ public class ParserTest {
 	public void MakeLinkTest(){
 		Parser parser = new Parser();
 
-		// case_1 : make Link tag
+		// case_1 : make Link tag []()
 		Token token = new Token();
 		token.tempStr = "[GitHub](http://github.com)";
-		Parser.MakeLink(token);
+		parser.MakeLink(token);
 
 		String tok = "temp";
-		if(token.tokens.size() != 0 )
+		if(token.tokens.size() != 0 ){
 			tok = token.tokens.get(0).getClass().getSimpleName();
+		}
 
 		assertEquals(true, tok.equals("Link"));
 
-		// case_2 : wrong case
+		// case_2 : make Link tag - www.~~~
 		Token token2 = new Token();
-		token2.tempStr = "[wrong](https://haein.png)";
-		Parser.MakeImg(token2);
+		token2.tempStr = "www.github.com";
+		parser.MakeLink(token2);
 
 		String tok2 = "temp";
-		if(token2.tokens.size() != 0)
+		if(token2.tokens.size() != 0){
 			tok2 = token2.tokens.get(0).getClass().getSimpleName();
-
-		assertEquals(false, tok2.equals("Link"));
+			assertEquals(true, tok2.equals("Link"));
+		}
 
 	}
 
