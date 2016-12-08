@@ -26,8 +26,10 @@ public class StyleTest {
 		assertTrue("Stylefailed",  Style.IsStyle("something__like__this"));
 		//Expected false
 		assertFalse("Stylefailed",  Style.IsStyle("*_*****"));
+		assertFalse("Stylefailed",  Style.IsStyle("*__*****"));
 		assertFalse("Stylefailed",  Style.IsStyle("this one_"));
-		assertFalse("Stylefailed",  Style.IsStyle("sho_uldn'tbe"));
+		assertFalse("Stylefailed",  Style.IsStyle(""));
+
 	}
 
 	
