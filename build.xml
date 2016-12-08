@@ -33,6 +33,7 @@
     <mkdir dir="${jar.dir}"/>
     <mkdir dir="${doc.dir}"/>
     <mkdir dir="${test.dir}"/>
+    <mkdir dir="../doc"/>
   </target>
   
   <!-- Compile the java code in ${src.dir} into ${bin.dir} -->
@@ -79,10 +80,30 @@
       <test name="NodeTest"/>
       <test name="ImageTest"/>
       <test name="ParserTest"/>
+      <test name="MainTest"/>
+
     </junit>
   </target>
 
   <target name="jacoco_test" depends ="test">
+        <jacoco:coverage>
+      <java classname="Main" fork="true">
+      <classpath path="bin" />
+      <classpath path="test" />
+      <classpath path="lib/junit-4.12.jar" />
+      <classpath path="lib/hamcrest-core-1.3.jar" />
+      </java>
+    </jacoco:coverage>
+    <jacoco:coverage>
+      <junit showoutput="true" printsummary="on" enabletestlistenerevents="true" fork="true">
+        <test name="MainTest"/>
+        <classpath path="test" />
+        <classpath path="bin" />
+        <classpath path="lib/junit-4.12.jar" />
+        <classpath path="lib/hamcrest-core-1.3.jar" />
+        <formatter type="plain" usefile="false" />
+      </junit>
+    </jacoco:coverage>
     <jacoco:coverage>
       <java classname="Parser" fork="true">
       <classpath path="bin" />
