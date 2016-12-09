@@ -85,12 +85,34 @@
       <test name="MainTest"/>
       <test name="CodeGeneratorTest"/>
       <test name="CLITest"/>
+      <test name= "CLI_Checker_Test"/>
+
 
     </junit>
   </target>
 
   <target name="jacoco_test" depends ="test">
-        <jacoco:coverage>
+    <jacoco:coverage>
+      <java classname="CLI_Checker_Test" fork="true">
+      <classpath path="bin" />
+      <classpath path="test" />
+      <classpath path="lib/junit-4.12.jar" />
+      <classpath path="lib/hamcrest-core-1.3.jar" />
+      </java>
+    </jacoco:coverage>
+    <jacoco:coverage>
+      <junit showoutput="true" printsummary="on" enabletestlistenerevents="true" fork="true">
+        <test name="CLI_Checker_Test"/>
+        <classpath path="test" />
+        <classpath path="bin" />
+        <classpath path="lib/junit-4.12.jar" />
+        <classpath path="lib/hamcrest-core-1.3.jar" />
+        <formatter type="plain" usefile="false" />
+      </junit>
+    </jacoco:coverage>
+
+    
+    <jacoco:coverage>
       <java classname="CLI" fork="true">
       <classpath path="bin" />
       <classpath path="test" />
