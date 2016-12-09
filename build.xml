@@ -83,7 +83,7 @@
       <test name="BlockQuotesTest"/>
       <test name="DocumentTest"/>
       <test name="MainTest"/>
-      <test name="PlainVisitorTest"/>
+      <test name="CodeGeneratorTest"/>
       <test name="CLITest"/>
 
     </junit>
@@ -342,7 +342,7 @@
       </junit>
     </jacoco:coverage>
     <jacoco:coverage>
-      <java classname="PlainVisitor" fork="true">
+      <java classname="CodeGenerator" fork="true">
       <classpath path="bin" />
       <classpath path="test" />
       <classpath path="lib/junit-4.12.jar" />
@@ -351,7 +351,7 @@
     </jacoco:coverage>
     <jacoco:coverage>
       <junit fork="true" forkmode="once">
-        <test name="PlainVisitorTest"/>
+        <test name="CodeGeneratorTest"/>
         <classpath path="bin" />
         <classpath path="test" />
         <classpath path="lib/junit-4.12.jar" />
