@@ -5,7 +5,6 @@ public class HorizontalBar extends Node{
     public static boolean IsHorizontal(String str){
 
         str = str.replaceAll(" ","");
-        System.out.println(str);
         int count = 0;
         boolean check = true;
         char temp = 0;
@@ -21,13 +20,11 @@ public class HorizontalBar extends Node{
         			count++;
         			temp = '=';
         		}else{
-        			System.out.println("1");
         			check = false;
         			break;
         		}
         	}else{
         		if(!(str.charAt(j) == temp)){
-        			System.out.println(j+"here");
         			check = false;
         			break;
         		}else{

@@ -14,11 +14,6 @@ public class CLI_Checker_Test {
         String[] str19 = {"-i", "a.md"};
         String[] str20 = {"-i", "a.md", "-o", "a.html"};
 
-        System.out.println("check17 : " + checker.CheckOverThanInput(str17));
-        System.out.println("check18 : " + checker.CheckOverThanInput(str18));
-        System.out.println("check19 : " + checker.CheckOverThanInput(str19));
-        System.out.println("check20 : " + checker.CheckOverThanInput(str20));
-       	
         assertEquals(false, checker.CheckOverThanInput(str17));
         assertEquals(false, checker.CheckOverThanInput(str18));
         assertEquals(true, checker.CheckOverThanInput(str19));
@@ -31,9 +26,6 @@ public class CLI_Checker_Test {
 
 		CLI_Checker checker = new CLI_Checker();
 
-        System.out.println("cli checker test ErrCheck");
-
-        System.out.println("CheckOption");
         // CheckOutOfRange / CheckHelp / CheckOption
         String[] str1 = {""};
         String[] str2 = {"-help"};
@@ -45,8 +37,6 @@ public class CLI_Checker_Test {
         checker.ErrCheck(str3);
         checker.ErrCheck(str4);
 
-
-        System.out.println("CheckNormalization");
         //CheckNormalization
         String[] str5 = {"\\"};
         String[] str6 = {"/"};
@@ -64,7 +54,6 @@ public class CLI_Checker_Test {
         checker.ErrCheck(str10);
         checker.ErrCheck(str11);
 
- 		System.out.println("CheckNameFormant");
         //CheckNameFormant
         String[] str12 = {"-i","a.txt"};
         String[] str13 = {"=i", "a.md", "-o", "a.txt"};
@@ -76,13 +65,11 @@ public class CLI_Checker_Test {
         checker.ErrCheck(str14);
         checker.ErrCheck(str15);
 
-        System.out.println("CheckInputFile");
         //CheckInputFile
         String[] str16 = {"-i", "b.md"};
 
         checker.ErrCheck(str16);
 
-        System.out.println("CheckOverThanInput");
         //CheckOverThanInput
         String[] str17 = {"-i","a.md","-o","a.html","b.html"};
         String[] str18 = {"-i","a.md","-o","a.html","-s","plain","fancy"};
@@ -90,6 +77,7 @@ public class CLI_Checker_Test {
         checker.ErrCheck(str17);
         checker.ErrCheck(str18);
 
+        // Good case
         String[] str19 = {"-i", "a.md"};
         String[] str20 = {"-i", "a.md", "-o", "a.html"};
         String[] str21 = {"-i", "a.md", "-s", "fancy"};
@@ -190,7 +178,7 @@ public class CLI_Checker_Test {
 
 		String file = "a";
 
-		System.out.println("filename : " +checker.CheckOutputFile(file));
+		checker.CheckOutputFile(file);
 
 	}
 

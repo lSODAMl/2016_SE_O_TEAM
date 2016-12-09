@@ -4,21 +4,7 @@ import org.junit.Test;
 import java.util.*;
 
 public class ParserTest {
-/*
-	@Test
-	public void docParserTest(){
-		// directory -> file -> ioException
-		Parser parser = new Parser();
-		String fileName = "a.md";
-		Document doc = new Document();
 
-		parser.docParser(fileName, doc);
-
-
-
-
-	}
-*/
 	@Test
 	public void nodeParserTest(){
 
@@ -31,7 +17,6 @@ public class ParserTest {
 		parser.bqLevel = 0;
 
 		parser.nodeParser(node_bq);
-		//System.out.println("bq : " + node_bq.nodes.get(0).getClass().getSimpleName());
 		assertEquals(true, node_bq.nodes.get(0).getClass().getSimpleName().equals("BlockQuotes"));
 
 		// </blockquote>
@@ -39,7 +24,6 @@ public class ParserTest {
 		node_bq_end.line = "";
 
 		parser.nodeParser(node_bq_end);
-		// System.out.println("bq_end : "+  node_bq_end.nodes.get(node_bq_end.nodes.size()-1).getClass().getSimpleName());
 		for(int i=0; i<parser.bqLevel;i++)
 			assertEquals(true, node_bq_end.nodes.get(i).getClass().getSimpleName().equals("BlockQuotes"));
 		// ``````````
@@ -55,9 +39,7 @@ public class ParserTest {
 		parser.nodeParser(node_cb);
 		assertEquals(true, node_cb.nodes.get(0).getClass().getSimpleName().equals("Paragraph"));
 		assertEquals(true, node_cb.nodes.get(node_cb.nodes.size()-1).getClass().getSimpleName().equals("CodeBlock"));
-		// System.out.println("codeblock start -> "+ node_cb.nodes.get(0).getClass().getSimpleName());
-
-
+		
 		// text between <codeblock>
 		Node node_code = new Node();
 		node_code.line = "function codeblock()";
@@ -114,9 +96,6 @@ public class ParserTest {
 		assertEquals(false, node_list_cur_ol.nodes.get(1).getClass().getSimpleName().equals("List")); // text
 		assertEquals(true, node_list_cur_ol.nodes.get(2).getClass().getSimpleName().equals("List")); // </li>
 
-		// check level
-		System.out.println("level ->" + parser.listLevel);
-
 		// List decrease : </ol><ul><li>text</li>
 		Node node_list_dec = new Node();
 		node_list_dec.line = "- dec_list";
@@ -152,9 +131,7 @@ public class ParserTest {
 		parser.nodeParser(node_hr);
 		assertEquals(true, node_hr.nodes.get(0).getClass().getSimpleName().equals("Paragraph"));
 		assertEquals(true, node_hr.nodes.get(node_hr.nodes.size()-1).getClass().getSimpleName().equals("HorizontalBar"));
-		// System.out.println("hr : " + node_hr.nodes.get(0).getClass().getSimpleName());
-
-
+		
 		// Paragraph
 		Node node_p = new Node();
 		node_p.line = "it is paragraph";
@@ -178,10 +155,8 @@ public class ParserTest {
 		String str1 = node_img.token.tempStr;
 		
 		parser.tokenParser(node_img);
-		//System.out.println("size" + node_img.token.tokens.size());
 		assertEquals(true, node_img.token.tokens.get(0).getClass().getSimpleName().equals("Image"));
-		//System.out.println(node_img.token.tokens.get(i).getClass().getSimpleName());
-
+		
 
 		// link case
 		Node node_link = new Node();
@@ -202,8 +177,7 @@ public class ParserTest {
 		boolean check = false;
 		for( int i = 0; i< node_style.token.tokens.size(); i++){
 			check = node_style.token.tokens.get(i).getClass().getSimpleName().equals("Style");
-			// System.out.println(node_style.token.tokens.get(i).getClass().getSimpleName() +" - " + check);
-
+			
 			if( check == true ){
 				assertEquals(true, node_style.token.tokens.get(i).getClass().getSimpleName().equals("Style"));
 
@@ -235,17 +209,7 @@ public class ParserTest {
 		String str = "#### h4";
 		Node node = new Node();
 		parser.MakeHeader(node , str);
-/*
-		// check <header>
-		String node_start = node.nodes.get(0).getClass().getSimpleName();
-		boolean check = node_start.equals("Header");
-		assertEquals(true, check);
 
- 		// check </header>
-		String node_end = node.nodes.get(node.nodes.size()-1).getClass().getSimpleName();
-		boolean check2 = node_end.equals("Header");
-		assertEquals(true, check2);
-*/
 		String node_ = "temp";
 		boolean check = false;
 		for(int i=0; i<node.nodes.size();i++){
@@ -271,7 +235,6 @@ public class ParserTest {
 		parser.MakeHorizontalBar(node);
 
 		String node_name = node.nodes.get(0).getClass().getSimpleName();
-		// System.out.println(node_name);
 		boolean check = node_name.equals("HorizontalBar");
 		assertEquals(true, check);
 
@@ -288,8 +251,6 @@ public class ParserTest {
 		parser.MakeCodeBlock(node, cFlag);
 		
 		String node_start = node.nodes.get(0).getClass().getSimpleName();
-		//boolean flag = node.nodes.get(0).tag;
-		// System.out.println(node_name);
 		boolean check = node_start.equals("CodeBlock");
 		assertEquals(true, check);
 
@@ -299,7 +260,6 @@ public class ParserTest {
 		parser.MakeCodeBlock(node2, cFlag2);
 
 		String node_end = node2.nodes.get(0).getClass().getSimpleName();
-		// System.out.println("</codeblock> : " + node_end);
 		boolean check2 = node_end.equals("CodeBlock");
 		assertEquals(true,check2);
 
@@ -319,7 +279,6 @@ public class ParserTest {
 		parser.MakeParagraph(node, line, pFlag);
 
 		String node_name = node.nodes.get(0).getClass().getSimpleName();
-		//System.out.println(node_name);
 		boolean check = node_name.equals("Paragraph");
 		assertEquals(true, check);
 
@@ -332,7 +291,6 @@ public class ParserTest {
 		parser.MakeParagraph(node2, line2, pFlag2);
 
 		String node_in = node2.nodes.get(node2.nodes.size()-1).getClass().getSimpleName();
-		// System.out.println(node_in);
 		boolean check2 = node_in.equals("Paragraph");
 		assertEquals(true, check2);
 		
@@ -348,7 +306,6 @@ public class ParserTest {
 		parser.MakeBlockQuotes(node, line, bqlevel);
 
 		String node_name = node.nodes.get(0).getClass().getSimpleName();
-		// System.out.println(node_name);
 		boolean check = node_name.equals("BlockQuotes");
 		assertEquals(true, check);
 	}
@@ -362,30 +319,10 @@ public class ParserTest {
 		parser.EndBlockQuotes(node, bqcount);
 
 		String node_name = node.nodes.get(0).getClass().getSimpleName();
-		// System.out.println(node_name +"end");
 		boolean check = node_name.equals("BlockQuotes");
 		assertEquals(true, check);
 	}
-/*	
-	// state / type / level too many cases...
-	@Test
-	public void MakeListTest(){
-		Parser parser = new Parser();
-		Node node = new Node();
 
-		// Unordered List
-
-		// state : 1 for increase, -1 for decrease, 0 for current level
-		int state;
-		String line = "* hello"
-		// type : 1 for ul, 
-		ArrayList<Integer> type = new ArrayList<Integer>;
-		parser.MakeList(Node node, String line, int state, ArrayList<Integer> type);
-
-
-		// Ordered List
-	}
-*/	
 	// Token completed
 	@Test
 	public void MakeStyleTest(){
