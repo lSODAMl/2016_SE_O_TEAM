@@ -119,7 +119,7 @@ public class CodeGeneratorTest {
 		assertEquals(true, node.nodes.get(0).getClass().getSimpleName().equals("Header"));
 
 		
-    }
+    }/*
 	@Test 
 	public void setNode2Test(){
 		
@@ -222,7 +222,7 @@ public class CodeGeneratorTest {
 		assertEquals(false, node.nodes.get(0).getClass().getSimpleName().equals("Header"));
 
 		
-    }
+    }*/
 
 	
 	
@@ -282,6 +282,7 @@ public class CodeGeneratorTest {
 			CodeGenerator.lineComp = 0;
 	
 	}
+	/*
 	@Test
 	public void setToken2Test(){
 		CodeGenerator codeGen= new CodeGenerator();
@@ -337,5 +338,5 @@ public class CodeGeneratorTest {
 			codeGen.setToken(tok_image, 2, 1, 5, 3, "Red");
 			CodeGenerator.isBegin = true;
 	}
-
+	*/
 }
