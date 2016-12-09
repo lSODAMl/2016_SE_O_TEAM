@@ -12,11 +12,15 @@ public class MainTest {
         String[] s3 = {"-i","a.md","-s","plain"};
         String[] s4 = {"-i","a.md","-o","a.html"};
         String[] s5 = {"-i","a.md","-s","plain","-o","a.html"};
+        String[] s6 = {"-i","a.md","-o","a.html","-s","fancy"};
 
         Main m = new Main();
         m.main(s1);
         m.main(s2);
         m.main(s3);
         m.main(s4);
+        m.main(s5);
+        m.main(s6);
+
     }
 }
