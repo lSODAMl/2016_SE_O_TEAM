@@ -8,6 +8,7 @@ import java.io.IOException;
 
 import org.junit.*;
 
+
 //import CLI.*;
 //import IR.*;
 //import PARSER.*;
@@ -19,8 +20,10 @@ public class CodeGeneratorTest {
 	public void setNode1Test(){
 		
 		CodeGenerator codeGen= new CodeGenerator();
-		
+		CodeGenerator.isBegin = true;
+		CodeGenerator.lineComp = 0;
 		Node node = new Node();
+		
 		
 			Header node_h1 = new Header();
 			node_h1.line = "# h1";	
@@ -29,6 +32,7 @@ public class CodeGeneratorTest {
 			codeGen.setNode(node, 0, 0, 0);
 			node_h1.tag=false;
 			codeGen.setNode(node, 0, 0, 0);
+			CodeGenerator.lineComp = 0;
 
 			Header node_h2 = new Header();
 			node_h2.line = "## h2";
@@ -37,7 +41,8 @@ public class CodeGeneratorTest {
 			codeGen.setNode(node_h2, 1, 1, 1);
 			node_h2.tag=false;
 			codeGen.setNode(node_h2, 1, 1, 1);
-			
+			CodeGenerator.isBegin = true;
+		
 			Header node_h3 = new Header();
 			node_h3.line = "### h3";
 			node_h3.tag=true;
@@ -53,7 +58,9 @@ public class CodeGeneratorTest {
 			codeGen.setNode(node_h4, 3, 2, 1);
 			node_h4.tag=false;
 			codeGen.setNode(node_h4, 1, 2, 3);
-			
+			CodeGenerator.isBegin = true;
+			CodeGenerator.lineComp = 0;
+		
 			Header node_h5 = new Header();
 			node_h5.line = "##### h5";
 			node_h5.headerNum=5;
@@ -69,7 +76,9 @@ public class CodeGeneratorTest {
 			codeGen.setNode(node_h6, 2, 3, 1);
 			node_h6.tag=false;
 			codeGen.setNode(node_h6, 2, 3, 1);
-			
+			CodeGenerator.isBegin = true;
+			CodeGenerator.lineComp = 0;
+		
 			//Para
 			Paragraph node_p = new Paragraph();
 			node_p.line="para";
@@ -84,6 +93,7 @@ public class CodeGeneratorTest {
 			codeGen.setNode(node_bq, 1, 1, 2);
 			node_bq.tag = false; 
 			codeGen.setNode(node_bq, 1, 1, 2);
+			CodeGenerator.isBegin = true;
 
 			List node_li1 = new List();
 			List node_li2 = new List();
@@ -97,6 +107,8 @@ public class CodeGeneratorTest {
 			node_li2.li = -1;
 			node_li2.line = "somelist";
 			codeGen.setNode(node_li2, 2, 1, 1);
+			CodeGenerator.isBegin = true;
+			CodeGenerator.lineComp = 0;
 			
 			
 			HorizontalBar node_hb = new HorizontalBar();
@@ -112,7 +124,7 @@ public class CodeGeneratorTest {
 	public void setNode2Test(){
 		
 		CodeGenerator codeGen= new CodeGenerator();
-		
+		CodeGenerator.isBegin = true;
 		Node node = new Node();
 			Header node_h1 = new Header();
 			node_h1.line = "# h1";	
@@ -122,6 +134,7 @@ public class CodeGeneratorTest {
 			codeGen.setNode(node, 0, 0, 0,"Green");
 			node_h1.tag=false;
 			codeGen.setNode(node, 0, 0, 0,"Green");
+			CodeGenerator.isBegin = true;
 
 			Header node_h2 = new Header();
 			node_h2.line = "## h2";
@@ -131,6 +144,8 @@ public class CodeGeneratorTest {
 			codeGen.setNode(node_h2, 1, 1, 1,"Green");
 			node_h2.tag=false;
 			codeGen.setNode(node_h2, 1, 1, 1,"Green");
+			CodeGenerator.isBegin = true;
+			CodeGenerator.lineComp = 0;
 			
 			Header node_h3 = new Header();
 			node_h3.line = "### h3";
@@ -148,6 +163,8 @@ public class CodeGeneratorTest {
 			codeGen.setNode(node_h4, 3, 2, 1, "Blue");
 			node_h4.tag=false;
 			codeGen.setNode(node_h4, 1, 2, 3, "Blue");
+			CodeGenerator.isBegin = true;
+			CodeGenerator.lineComp = 0;
 			
 			Header node_h5 = new Header();
 			node_h5.line = "##### h5";
@@ -164,6 +181,7 @@ public class CodeGeneratorTest {
 			codeGen.setNode(node_h6, 2, 3, 1, "Blue");
 			node_h6.tag=false;
 			codeGen.setNode(node_h6, 2, 3, 1, "Blue");
+			CodeGenerator.isBegin = true;
 			
 			//Para
 			Paragraph node_p = new Paragraph();
@@ -179,6 +197,8 @@ public class CodeGeneratorTest {
 			codeGen.setNode(node_bq, 1, 1, 2, "Red");
 			node_bq.tag = false; 
 			codeGen.setNode(node_bq, 1, 1, 2, "Red");
+			CodeGenerator.isBegin = true;
+			CodeGenerator.lineComp = 0;
 
 			List node_li1 = new List();
 			List node_li2 = new List();
@@ -192,7 +212,8 @@ public class CodeGeneratorTest {
 			node_li2.li = -1;
 			node_li2.line = "somelist";
 			codeGen.setNode(node_li2, 2, 1, 1, "Red");
-			
+			CodeGenerator.isBegin = true;
+		
 			
 			HorizontalBar node_hb = new HorizontalBar();
 			node_hb.line = "--------";
@@ -208,12 +229,14 @@ public class CodeGeneratorTest {
 	@Test
 	public void setToken1Test(){
 		CodeGenerator codeGen= new CodeGenerator();
-		
+		CodeGenerator.isBegin = true;
+
 		Token tok = new Token();
 	
 			Text tok_text = new Text("text");
 			tok_text.tempStr="text";
 			codeGen.setToken(tok_text, 0, 0, 0, 0);
+			CodeGenerator.isBegin = true;
 
 			Style tok_style1 = new Style("__style__", true);
 			tok_style1.tempStr="__style__";
@@ -222,6 +245,8 @@ public class CodeGeneratorTest {
 			codeGen.setToken(tok_style1, 1, 2, 3, 4);
 			tok_style1.tag = false;
 			codeGen.setToken(tok_style1, 1, 2, 3, 4);
+			CodeGenerator.isBegin = true;
+			CodeGenerator.lineComp = 0;
 
 			Style tok_style2 = new Style("_style_", true);
 			tok_style2.tempStr="_style_";
@@ -231,9 +256,12 @@ public class CodeGeneratorTest {
 			Style tok_style3 = new Style("yle_", false);
 			tok_style2.tag=false;
 			codeGen.setToken(tok_style2, 1, 2, 3, 4);
+			CodeGenerator.isBegin = true;
 
 			tok_style3.tempStr="yle_";
 			codeGen.setToken(tok_style3, 1, 2, 3, 4);
+			CodeGenerator.isBegin = true;
+			CodeGenerator.lineComp = 0;
 
 			
 			
@@ -244,22 +272,27 @@ public class CodeGeneratorTest {
 			codeGen.setToken(tok_link, 4, 3, 2, 1);
 			tok_link.tag = false;
 			codeGen.setToken(tok_link, 4, 3, 2, 1);
-			
+			CodeGenerator.isBegin = true;
+
 			Image tok_image = new Image();
 			tok_image.altText="alt";
 			tok_image.src="http:\\somewhatsrc";
 			codeGen.setToken(tok_image, 2, 1, 5, 3);
+			CodeGenerator.isBegin = true;
+			CodeGenerator.lineComp = 0;
 	
 	}
 	@Test
 	public void setToken2Test(){
 		CodeGenerator codeGen= new CodeGenerator();
+		CodeGenerator.isBegin = true;
 		
 		Token tok = new Token();
 	
 			Text tok_text = new Text("text");
 			tok_text.tempStr="text";
 			codeGen.setToken(tok_text, 0, 0, 0, 0, "Red");
+			CodeGenerator.isBegin = true;
 
 			Style tok_style1 = new Style("__style__", true);
 			tok_style1.tempStr="__style__";
@@ -268,6 +301,8 @@ public class CodeGeneratorTest {
 			codeGen.setToken(tok_style1, 1, 2, 3, 4, "Red");
 			tok_style1.tag = false;
 			codeGen.setToken(tok_style1, 1, 2, 3, 4, "Red");
+			CodeGenerator.isBegin = true;
+			CodeGenerator.lineComp = 0;
 
 			Style tok_style2 = new Style("_style_", true);
 			tok_style2.tempStr="_style_";
@@ -277,9 +312,12 @@ public class CodeGeneratorTest {
 			Style tok_style3 = new Style("yle_", false);
 			tok_style2.tag=false;
 			codeGen.setToken(tok_style2, 1, 2, 3, 4, "Red");
+			CodeGenerator.isBegin = true;
 
 			tok_style3.tempStr="yle_";
 			codeGen.setToken(tok_style3, 1, 2, 3, 4, "Red");
+			CodeGenerator.isBegin = true;
+			CodeGenerator.lineComp = 0;
 
 			
 			
@@ -290,11 +328,14 @@ public class CodeGeneratorTest {
 			codeGen.setToken(tok_link, 4, 3, 2, 1, "Red");
 			tok_link.tag = false;
 			codeGen.setToken(tok_link, 4, 3, 2, 1, "Red");
+			CodeGenerator.isBegin = true;
+			CodeGenerator.lineComp = 0;
 			
 			Image tok_image = new Image();
 			tok_image.altText="alt";
 			tok_image.src="http:\\somewhatsrc";
 			codeGen.setToken(tok_image, 2, 1, 5, 3, "Red");
+			CodeGenerator.isBegin = true;
 	}
 
 }
