@@ -11,20 +11,20 @@ import org.w3c.tidy.Tidy;
 
 
 public class CodeGenerator {
-	
+
 	public CLI cli = new CLI();
 	public static boolean isBegin = true;
 	public static int lineComp=0;
 	public static boolean plainText = true;
 	public static boolean nodeOpen;
-	
+
 	public static String msg;
 	public static BufferedWriter file;
 
 	public CodeGenerator()
 	{
-		
-	}	
+
+	}
 
 	public CodeGenerator(CLI cli)
 	{
@@ -220,16 +220,16 @@ public class CodeGenerator {
 	            }
 	            catch (IOException e)
 	            {
-	                System.err.println(e);
-	                System.exit(1);
+//	                System.err.println(e);
+//	                System.exit(1);
 	            }
 	            catch (Exception e){
-	                System.out.println(e);
+//	                System.out.println(e);
 	            }
 
 
 	}
-
+/*
 	public void setNode(Node node,int index, int lineNo,int nodeNo,String color)
 	{
 		  try
@@ -335,7 +335,7 @@ public class CodeGenerator {
               System.out.println(e);
           }
 
-	}
+	}*/
 
 
 	public void setToken(Token token,int index, int lineNo, int nodeNo, int tokenNo)
@@ -439,11 +439,11 @@ public class CodeGenerator {
 
 		  catch (IOException e)
          {
-             System.err.println(e);
-             System.exit(1);
+//             System.err.println(e);
+//             System.exit(1);
          }
          catch (Exception e){
-             System.out.println(e);
+//             System.out.println(e);
          }
 
 
@@ -451,7 +451,7 @@ public class CodeGenerator {
 	}
 
 
-
+/*
 	public void setToken(Token token,int index, int lineNo, int nodeNo, int tokenNo, String color)
 	{
 		 try
@@ -541,5 +541,5 @@ public class CodeGenerator {
          }
 
 
-}
+}*/
 }

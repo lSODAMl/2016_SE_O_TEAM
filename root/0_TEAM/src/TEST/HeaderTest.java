@@ -11,8 +11,8 @@ public class HeaderTest {
 	String str3 = new String("#########somewhatlike this");
 	String str4 = new String("#####");
 
-	
-	
+
+
 	@Test
     public void IsHeaderTest(){
 		assertFalse("HeaderFail",  Header.IsHeader(str1));

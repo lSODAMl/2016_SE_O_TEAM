@@ -1,6 +1,6 @@
 
 // package test;
- 
+
 
 import static org.junit.Assert.*;
 
@@ -19,18 +19,18 @@ public class NodeTest {
 	static Node no1 = new Node();
 	static Node no2 = new Node();
 	static CodeGenerator codeGen = new CodeGenerator();
-	
+
 	@BeforeClass public static void justBefore(){
 		node = Node.create(in);
 		no1.accept(pVisitor);
 //		no2.accept(fVisitor);
 	}
-	
+
 	@Test
 	public void createTest(){
 		//Expected True
 		assertTrue("Createfailed",  node.line.equals(in));
-		
+
 	}
 
 }

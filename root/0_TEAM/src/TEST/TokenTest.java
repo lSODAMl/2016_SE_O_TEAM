@@ -1,6 +1,6 @@
 
 //package test;
- 
+
 
 import static org.junit.Assert.*;
 
@@ -23,12 +23,12 @@ public class TokenTest {
 		tok1.accept(pVisitor);
 //		tok2.accept(fVisitor);
 	}
-	
+
 	@Test
 	public void createTest(){
 		//Expected True
 		assertTrue("Createfailed",  tok.tempStr.equals(in));
-		
+
 	}
 
 }
