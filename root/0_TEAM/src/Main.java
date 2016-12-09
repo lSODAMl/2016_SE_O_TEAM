@@ -60,8 +60,8 @@ public class Main {
             for(int i = 0; i < docs.length; i++){
             	if(CLI.style[i].equals("plain"))
             		docs[i].accept(new PlainVisitor());
-             	if(CLI.style[i].equals("fancy"))
-            		docs[i].accept(new FancyVisitor());
+//             	if(CLI.style[i].equals("fancy"))
+//            		docs[i].accept(new FancyVisitor());
             }
 
 
