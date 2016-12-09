@@ -11,21 +11,22 @@ import org.w3c.tidy.Tidy;
 
 
 public class CodeGenerator {
-
+	
 	public CLI cli = new CLI();
 	public static boolean isBegin = true;
 	public static int lineComp=0;
 	public static boolean plainText = true;
 	public static boolean nodeOpen;
-
+	
 	public static String msg;
 	public static BufferedWriter file;
 
+	public CodeGenerator()
+	{
+		
+	}	
 
-
-	CodeGenerator()	{}
-
-	CodeGenerator(CLI cli)
+	public CodeGenerator(CLI cli)
 	{
 		this.cli = cli;
 	}
@@ -35,7 +36,6 @@ public class CodeGenerator {
 
 	        try
 	            {
-	            	 file = new BufferedWriter(new FileWriter(CLI.output[index], true));
 	            	if(lineNo == 0 && isBegin )
 	            	{
 	            		isBegin = false;
@@ -215,6 +215,7 @@ public class CodeGenerator {
 
 
 
+            	 file = new BufferedWriter(new FileWriter(CLI.output[index], true));
 
 	            }
 	            catch (IOException e)
@@ -233,7 +234,6 @@ public class CodeGenerator {
 	{
 		  try
           {
-          	 file = new BufferedWriter(new FileWriter(CLI.output[index], true));
           	if(lineNo == 0 && isBegin )
           	{
           		isBegin = false;
@@ -322,9 +322,11 @@ public class CodeGenerator {
 
 
 
+          	 file = new BufferedWriter(new FileWriter(CLI.output[index], true));
 
           }
-          catch (IOException e)
+
+		  catch (IOException e)
           {
               System.err.println(e);
               System.exit(1);
@@ -341,7 +343,6 @@ public class CodeGenerator {
 
 		 try
          {
-		 file = new BufferedWriter(new FileWriter(CLI.output[index], true));
 
 			if(isBegin)
 			{
@@ -432,6 +433,7 @@ public class CodeGenerator {
 	    	 msg +="\n</html>";
 		 }
 		 }
+		 file = new BufferedWriter(new FileWriter(CLI.output[index], true));
 
          }
 
@@ -454,7 +456,6 @@ public class CodeGenerator {
 	{
 		 try
          {
-		 file = new BufferedWriter(new FileWriter(CLI.output[index], true));
 
 			if(isBegin )
 			{
@@ -526,6 +527,7 @@ public class CodeGenerator {
 	    	 msg +="\n</html>";
 		 }
 		 }
+		 file = new BufferedWriter(new FileWriter(CLI.output[index], true));
 
          }
 
