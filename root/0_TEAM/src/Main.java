@@ -72,8 +72,8 @@ public class Main {
 
             catch(IOException e)
             {
-            System.err.println(e);
-            System.exit(1);
+            /*System.err.println(e);
+            System.exit(1);*/
             }
 
             for(int i=0;i < docs.length; i++)
