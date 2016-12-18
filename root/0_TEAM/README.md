@@ -25,9 +25,11 @@ located in this directory O_TEAM. So it should be like root/O_TEAM/example.md .
 
 ##Syntax
 * java -jar project.jar __-i__ [md file]
-* java -jar project.jar __-i__ [md file]+ __-o__ [html fi,e]*
+* java -jar project.jar __-i__ [md file]+ __-o__ [html file]*
 * java -jar project.jar __-i__ [md file]+ __-s__ [plain]*
+* java -jar project.jar __-i__ [md file]+ __-s__ [fancy]*
 * java -jar project.jar __-i__ [md file]+ __-o__ [html file]* __-s__ [plain]*
+* java -jar project.jar __-i__ [md file]+ __-o__ [html file]* __-s__ [fancy]*
 
 
 
@@ -62,6 +64,7 @@ bad use
 ```
 
 * __-s__ [plain]*
+* __-s__ [fancy]*
   1. A user can enter zero or more style option.
   2. If user does not input style option, program applies plain(default) style
 
@@ -82,6 +85,7 @@ bad use
 
 ### Style
 1. plain - default style
+2. fancy - fancy style
 
 
 
